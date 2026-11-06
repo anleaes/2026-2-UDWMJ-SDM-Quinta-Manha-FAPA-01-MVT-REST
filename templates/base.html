@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/arquivo_com_estilos.css' %}">
+    <title>{% block title %}VetApp - Clinica Veterinaria{% endblock title %}</title>
+</head>
+<body class="core_body">
+
+    <a href="{% url 'core:home' %}"><img src="{% static 'img/menu.png' %}" width="200" height="60" /></a>
+    <br />
+    <a href="#"><button onclick="mudarCor()">Pessoas</button></a>
+    <a href="#"><button onclick="alertarMensagem()">Fabricantes</button></a>
+    <a href="#"><button onclick="alertarMensagem()">Tutores</button></a>
+    <a href="#"><button onclick="alertarMensagem()">Vacinas</button></a>
+    <a href="#"><button onclick="alertarMensagem()">Veterinarios</button></a>
+    <a href="#"><button onclick="alertarMensagem()">Especies</button></a>
+    <a href="#"><button onclick="alertarMensagem()">Animais</button></a>
+    <a href="#"><button onclick="alertarMensagem()">Lotes</button></a>
+    <a href="#"><button onclick="alertarMensagem()">Medicamentos</button></a>
+    <a href="#"><button onclick="alertarMensagem()">Vacinacoes</button></a>
+    <a href="#"><button onclick="alertarMensagem()">Receitas</button></a>
+    <a href="#"><button onclick="alertarMensagem()">Certificados</button></a>
+    <a href="#"><button onclick="alertarMensagem()">Agendamentos</button></a>
+    <br />
+
+    {% block body %}
+
+    {% endblock body %}
+
+    <script src="{% static 'js/arquivo_com_javascript.js' %}"></script>
+</body>
+</html>
+
