@@ -49,3 +49,9 @@ def edit_manufacturer(request, pk):
 
     context['form'] = form
     return render(request, template_name, context)
+
+
+def delete_manufacturer(request, pk):
+    manufacturer = Manufacturer.objects.get(id=pk)
+    manufacturer.delete()
+    return redirect('manufacturers:list_manufacturers')
