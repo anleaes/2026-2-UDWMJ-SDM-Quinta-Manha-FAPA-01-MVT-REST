@@ -32,3 +32,20 @@ def list_manufacturers(request):
         'manufacturers': manufacturers
     }
     return render(request, template_name, context)
+
+def edit_manufacturer(request, pk):
+    template_name = 'manufacturers/add_manufacturer.html'
+    context = {}
+    manufacturer = get_object_or_404(Manufacturer, pk=pk)
+
+    if request.method == 'POST':
+        form = ManufacturerForm(request.POST, instance=manufacturer)
+
+        if form.is_valid():
+            form.save()
+            return redirect('manufacturers:list_manufacturers')
+    else:
+        form = ManufacturerForm(instance=manufacturer)
+
+    context['form'] = form
+    return render(request, template_name, context)
