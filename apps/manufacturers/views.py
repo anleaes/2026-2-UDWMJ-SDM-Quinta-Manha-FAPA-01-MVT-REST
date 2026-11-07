@@ -23,3 +23,12 @@ def add_manufacturer(request):
 
     context['form'] = form
     return render(request, template_name, context)
+
+def list_manufacturers(request):
+    template_name = 'manufacturers/list_manufacturers.html'
+    manufacturers = Manufacturer.objects.filter()
+
+    context = {
+        'manufacturers': manufacturers
+    }
+    return render(request, template_name, context)
