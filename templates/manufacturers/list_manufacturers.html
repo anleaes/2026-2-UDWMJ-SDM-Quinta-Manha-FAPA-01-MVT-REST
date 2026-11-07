@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Lista de Fabricantes - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+<br />
+<b>Lista de Fabricantes</b>
+<br />
+<br />
+<a href="{% url 'manufacturers:add_manufacturer' %}">Adicionar Fabricante</a>
+<br />
+<br />
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>CNPJ</th>
+            <th>País</th>
+            <th>E-mail</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for manufacturer in manufacturers %}
+        <tr>
+            <td>{{ manufacturer.id }}</td>
+            <td>{{ manufacturer.name }}</td>
+            <td>{{ manufacturer.cnpj }}</td>
+            <td>{{ manufacturer.country }}</td>
+            <td>{{ manufacturer.email }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">Nenhum fabricante cadastrado.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock body %}
