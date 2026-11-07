@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Cadastro de Fabricante - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+  <br />
+  <b>Cadastro de Fabricante</b>
+  <br />
+  <br />
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <label>Nome:</label>
+    <br />
+    {{ form.name }}
+    {{ form.name.errors }}
+    <br />
+    <br />
+    <label>CNPJ:</label>
+    <br />
+    {{ form.cnpj }}
+    {{ form.cnpj.errors }}
+    <br />
+    <br />
+    <label>País:</label>
+    <br />
+    {{ form.country }}
+    {{ form.country.errors }}
+    <br />
+    <br />
+    <label>E-mail:</label>
+    <br />
+    {{ form.email }}
+    {{ form.email.errors }}
+    <br />
+    <br />
+    <button type="submit">Salvar</button>
+  </form>
+  <br />
+  <a href="{% url 'manufacturers:list_manufacturers' %}">Voltar para a lista</a>
+{% endblock body %}
