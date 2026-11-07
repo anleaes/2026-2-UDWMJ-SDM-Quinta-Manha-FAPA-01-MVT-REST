@@ -20,6 +20,7 @@
             <th>CNPJ</th>
             <th>País</th>
             <th>E-mail</th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -30,10 +31,14 @@
             <td>{{ manufacturer.cnpj }}</td>
             <td>{{ manufacturer.country }}</td>
             <td>{{ manufacturer.email }}</td>
+            <td>
+                <a href="{% url 'manufacturers:edit_manufacturer' manufacturer.id %}">Editar</a>
+                <a href="{% url 'manufacturers:delete_manufacturer' manufacturer.id %}">Excluir</a>
+            </td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="5">Nenhum fabricante cadastrado.</td>
+            <td colspan="6">Nenhum fabricante cadastrado.</td>
         </tr>
         {% endfor %}
     </tbody>
