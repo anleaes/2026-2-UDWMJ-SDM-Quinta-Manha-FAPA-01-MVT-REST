@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Lista de Pessoas - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+
+<br />
+    <a href="{% url 'persons:add_person' %}">Cadastro de nova pessoa</a>
+<br />
+<br />
+<b>Lista de Pessoas</b>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Telefone</th>
+            <th>E-mail</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for person in persons %}
+            <tr>
+                <td>{{ person.id }}</td>
+                <td>{{ person.name }}</td>
+                <td>{{ person.cpf }}</td>
+                <td>{{ person.phone }}</td>
+                <td>{{ person.email }}</td>
+                <td>
+                    <a href="{% url 'persons:edit_person' person.id %}">Editar</a>
+                </td>
+                <td>
+                    <a href="{% url 'persons:delete_person' person.id %}">Excluir</a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="7">Nenhuma pessoa cadastrada.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock body %}
