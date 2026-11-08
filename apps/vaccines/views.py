@@ -27,3 +27,18 @@ def list_vaccines(request):
         'vaccines': vaccines
     }
     return render(request, template_name, context)
+
+
+def edit_vaccine(request, id_vaccine):
+    template_name = 'vaccines/add_vaccine.html'
+    context = {}
+    vaccine = get_object_or_404(Vaccine, id=id_vaccine)
+    if request.method == 'POST':
+        form = VaccineForm(request.POST, request.FILES, instance=vaccine)
+        if form.is_valid():
+            form.save()
+            return redirect('vaccines:list_vaccines')
+    else:
+        form = VaccineForm(instance=vaccine)
+    context['form'] = form
+    return render(request, template_name, context)
