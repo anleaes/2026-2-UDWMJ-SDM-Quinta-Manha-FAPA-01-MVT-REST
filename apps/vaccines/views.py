@@ -42,3 +42,9 @@ def edit_vaccine(request, id_vaccine):
         form = VaccineForm(instance=vaccine)
     context['form'] = form
     return render(request, template_name, context)
+
+
+def delete_vaccine(request, id_vaccine):
+    vaccine = Vaccine.objects.get(id=id_vaccine)
+    vaccine.delete()
+    return redirect('vaccines:list_vaccines')
