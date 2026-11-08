@@ -31,3 +31,12 @@
 /apps/prescriptions/migrations/*
 /apps/accounts/__pycache__/*
 /apps/accounts/migrations/*
+
+#1Feeh files ignore =================================================================
+**/__pycache__/
+/requirements.txt
+/requirements_lock_1Feeh.txt
+/*_me.txt
+/*_me.md
+
+#====================================================================================
