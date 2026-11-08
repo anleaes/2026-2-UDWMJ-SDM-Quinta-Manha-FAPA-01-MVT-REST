@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.db import models
 
 from manufacturers.models import Manufacturer
@@ -22,3 +24,20 @@ class Vaccine(models.Model):
 
     def __str__(self):
         return f'{self.id} - {self.name}'
+
+    def next_dose(self, animal):
+        """Retorna a data da próxima dose, ou None sem histórico ou com doses concluídas."""
+        last_application = animal.appointment_set.filter(
+            vaccination__batch__vaccine=self
+        ).values(
+            'vaccination__applied_at', 'vaccination__dose_number'
+        ).order_by(
+            '-vaccination__applied_at', '-vaccination__dose_number'
+        ).first()
+
+        if last_application is None:
+            return None
+        if last_application['vaccination__dose_number'] >= self.required_doses:
+            return None
+
+        return last_application['vaccination__applied_at'] + timedelta(days=self.interval_days)
