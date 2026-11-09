@@ -18,3 +18,12 @@ def add_veterinarian(request):
         form = VeterinarianForm()
     context['form'] = form
     return render(request, template_name, context)
+
+
+def list_veterinarians(request):
+    template_name = 'veterinarians/list_veterinarians.html'
+    veterinarians = Veterinarian.objects.filter()
+    context = {
+        'veterinarians': veterinarians
+    }
+    return render(request, template_name, context)
