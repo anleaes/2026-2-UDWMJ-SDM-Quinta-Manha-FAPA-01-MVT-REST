@@ -42,3 +42,9 @@ def edit_veterinarian(request, id_veterinarian):
         form = VeterinarianForm(instance=veterinarian)
     context['form'] = form
     return render(request, template_name, context)
+
+
+def delete_veterinarian(request, id_veterinarian):
+    veterinarian = Veterinarian.objects.get(id=id_veterinarian)
+    veterinarian.delete()
+    return redirect('veterinarians:list_veterinarians')
