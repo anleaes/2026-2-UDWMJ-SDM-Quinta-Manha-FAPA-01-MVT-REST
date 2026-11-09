@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Pessoa - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+
+<br />
+<b>Cadastro de Pessoa</b>
+<br />
+<br />
+<form action="" method="POST">
+{% csrf_token %}
+    <label>Nome</label>
+    <br />
+    {{ form.name }} {{ form.name.errors }}
+    <br />
+    <br />
+    <label>CPF</label>
+    <br />
+    {{ form.cpf }} {{ form.cpf.errors }}
+    <br />
+    <br />
+    <label>Telefone</label>
+    <br />
+    {{ form.phone }} {{ form.phone.errors }}
+    <br />
+    <br />
+    <label>E-mail</label>
+    <br />
+    {{ form.email }} {{ form.email.errors }}
+    <br />
+    <br />
+    <button type="submit">Salvar</button>
+</form>
+
+{% endblock body %}
