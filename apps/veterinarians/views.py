@@ -27,3 +27,18 @@ def list_veterinarians(request):
         'veterinarians': veterinarians
     }
     return render(request, template_name, context)
+
+
+def edit_veterinarian(request, id_veterinarian):
+    template_name = 'veterinarians/add_veterinarian.html'
+    context = {}
+    veterinarian = get_object_or_404(Veterinarian, id=id_veterinarian)
+    if request.method == 'POST':
+        form = VeterinarianForm(request.POST, instance=veterinarian)
+        if form.is_valid():
+            form.save()
+            return redirect('veterinarians:list_veterinarians')
+    else:
+        form = VeterinarianForm(instance=veterinarian)
+    context['form'] = form
+    return render(request, template_name, context)
