@@ -16,3 +16,7 @@ def add_person(request):
         form = PersonForm()
     return render(request, template_name, {'form': form})
 
+def list_persons(request):
+    template_name = 'persons/list_persons.html'
+    persons = Person.objects.filter()
+    return render(request, template_name, {'persons': persons})
