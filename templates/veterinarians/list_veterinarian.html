@@ -23,6 +23,8 @@ Lista de Veterinarios - {{ block.super }}
             <th>E-mail</th>
             <th>CRMV</th>
             <th>Ativo</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -35,10 +37,16 @@ Lista de Veterinarios - {{ block.super }}
             <td>{{ veterinarian.email }}</td>
             <td>{{ veterinarian.crmv }}</td>
             <td>{{ veterinarian.is_active|yesno:"Sim,Não" }}</td>
+            <td>
+                <a href="{% url 'veterinarians:edit_veterinarian' veterinarian.id %}">Editar</a>
+            </td>
+            <td>
+                <a href="{% url 'veterinarians:delete_veterinarian' veterinarian.id %}">Excluir</a>
+            </td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="7">Nenhum veterinario cadastrado.</td>
+            <td colspan="9">Nenhum veterinario cadastrado.</td>
         </tr>
         {% endfor %}
     </tbody>
