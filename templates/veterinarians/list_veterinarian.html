@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Lista de Veterinarios - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+
+<br />
+<a href="{% url 'veterinarians:add_veterinarian' %}">Cadastro de novo veterinario</a>
+<br />
+<br />
+<b>Lista de Veterinarios</b>
+<br />
+<br />
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Telefone</th>
+            <th>E-mail</th>
+            <th>CRMV</th>
+            <th>Ativo</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for veterinarian in veterinarians %}
+        <tr>
+            <td>{{ veterinarian.id }}</td>
+            <td>{{ veterinarian.name }}</td>
+            <td>{{ veterinarian.cpf }}</td>
+            <td>{{ veterinarian.phone }}</td>
+            <td>{{ veterinarian.email }}</td>
+            <td>{{ veterinarian.crmv }}</td>
+            <td>{{ veterinarian.is_active|yesno:"Sim,Não" }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7">Nenhum veterinario cadastrado.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock body %}
