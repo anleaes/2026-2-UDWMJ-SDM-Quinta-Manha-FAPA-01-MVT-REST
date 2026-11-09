@@ -1,0 +1,18 @@
+from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
+from .forms import PersonForm
+from .models import Person
+
+# Create your views here.
+
+def add_person(request):
+    template_name = 'persons/add_person.html'
+    if request.method == 'POST':
+        form = PersonForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('persons:list_persons')
+    else:
+        form = PersonForm()
+    return render(request, template_name, {'form': form})
+
