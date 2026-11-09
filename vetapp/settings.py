@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'manufacturers.apps.ManufacturersConfig',
     'persons.apps.PersonsConfig',
+    'vaccines.apps.VaccinesConfig',
 ]
 
 MIDDLEWARE = [

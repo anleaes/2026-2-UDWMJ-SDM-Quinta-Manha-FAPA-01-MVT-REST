@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Cadastro de Vacina - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+  <br />
+  <b>Cadastro de Vacina</b>
+  <br />
+  <br />
+  <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <label>Fabricante:</label>
+    <br />
+    {{ form.manufacturer }}
+    {{ form.manufacturer.errors }}
+    <br />
+    <br />
+    <label>Nome:</label>
+    <br />
+    {{ form.name }}
+    {{ form.name.errors }}
+    <br />
+    <br />
+    <label>Descrição:</label>
+    <br />
+    {{ form.description }}
+    {{ form.description.errors }}
+    <br />
+    <br />
+    <label>Doses necessárias:</label>
+    <br />
+    {{ form.required_doses }}
+    {{ form.required_doses.errors }}
+    <br />
+    <br />
+    <label>Intervalo entre doses (dias):</label>
+    <br />
+    {{ form.interval_days }}
+    {{ form.interval_days.errors }}
+    <br />
+    <br />
+    <label>Preço:</label>
+    <br />
+    {{ form.price }}
+    {{ form.price.errors }}
+    <br />
+    <br />
+    <label>Ativa:</label>
+    <br />
+    {{ form.is_active }}
+    {{ form.is_active.errors }}
+    <br />
+    <br />
+    <label>Bula:</label>
+    <br />
+    {{ form.package_insert }}
+    {{ form.package_insert.errors }}
+    <br />
+    <br />
+    <button type="submit">Salvar</button>
+  </form>
+  <br />
+  <a href="{% url 'vaccines:list_vaccines' %}">Voltar para a lista</a>
+{% endblock body %}

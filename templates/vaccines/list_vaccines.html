@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Lista de Vacinas - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+  <br />
+  <b>Lista de Vacinas</b>
+  <br />
+  <br />
+  <a href="{% url 'vaccines:add_vaccine' %}">Adicionar Vacina</a>
+  <br />
+  <br />
+  <table border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Fabricante</th>
+        <th>Nome</th>
+        <th>Descrição</th>
+        <th>Doses necessárias</th>
+        <th>Intervalo (dias)</th>
+        <th>Preço</th>
+        <th>Ativa</th>
+        <th>Bula</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for vaccine in vaccines %}
+        <tr>
+          <th>{{ vaccine.id }}</th>
+          <td>{{ vaccine.manufacturer }}</td>
+          <td>{{ vaccine.name }}</td>
+          <td>{{ vaccine.description }}</td>
+          <td>{{ vaccine.required_doses }}</td>
+          <td>{{ vaccine.interval_days }}</td>
+          <td>R$ {{ vaccine.price }}</td>
+          <td>{{ vaccine.is_active|yesno:"Sim,Não" }}</td>
+          <td>
+            {% if vaccine.package_insert %}
+              <a href="{{ vaccine.package_insert.url }}">Ver bula</a>
+            {% else %}
+              Sem bula
+            {% endif %}
+          </td>
+          <td>
+            <a href="{% url 'vaccines:edit_vaccine' vaccine.id %}">Editar</a>
+            <a href="{% url 'vaccines:delete_vaccine' vaccine.id %}">Excluir</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="10">Nenhuma vacina cadastrada.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock body %}
