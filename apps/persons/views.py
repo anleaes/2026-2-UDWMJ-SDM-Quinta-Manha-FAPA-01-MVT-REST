@@ -32,3 +32,8 @@ def edit_person(request, id_person):
     else:
         form = PersonForm(instance=person)
     return render(request, template_name, {'form': form})
+
+def delete_person(request, id_person):
+    person = get_object_or_404(Person, id=id_person)
+    person.delete()
+    return redirect('persons:list_persons')
