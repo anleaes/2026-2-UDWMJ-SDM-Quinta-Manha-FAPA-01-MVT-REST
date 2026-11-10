@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'manufacturers.apps.ManufacturersConfig',
     'persons.apps.PersonsConfig',
     'vaccines.apps.VaccinesConfig',
+    'batches.apps.BatchesConfig',
     'veterinarians.apps.VeterinariansConfig',
 ]
 
