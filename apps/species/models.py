@@ -7,6 +7,7 @@ class Species(models.Model):
     name = models.CharField('Nome', max_length=100)
     description = models.TextField('Descrição', max_length=300)
     average_lifespan_years = models.IntegerField('Expectativa de vida (anos)')
+    is_active = models.BooleanField('Ativa', default=True)
 
     class Meta:
         verbose_name = 'Espécie'
