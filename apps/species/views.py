@@ -13,3 +13,8 @@ def add_species(request):
     else:
         form = SpeciesForm()
     return render(request, template_name, {'form': form})
+
+def list_species(request):
+    template_name = 'species/list_species.html'
+    species = Species.objects.prefetch_related('vaccine')
+    return render(request, template_name, {'species': species})
