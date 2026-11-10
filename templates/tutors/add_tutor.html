@@ -1,25 +1,39 @@
 {% extends 'base.html' %}
-
+{% block title %}
+    Cadastro de Tutor - {{ block.super }}
+{% endblock title %}
 {% block body %}
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">Registo de Tutor</h4>
-                </div>
-                <div class="card-body">
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <div class="d-flex justify-content-between mt-4">
-                            <a href="{% url 'tutors:tutor_list' %}" class="btn btn-secondary">Cancelar</a>
-                            <button type="submit" class="btn btn-success">Salvar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<br />
+<b>Cadastro de Tutor</b>
+<br />
+<br />
+<form action="" method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+    <label>Nome:</label>
+    <br />
+    {{ form.name }}
+    <br />
+    <br />
+    <label>CPF:</label>
+    <br />
+    {{ form.cpf }}
+    <br />
+    <br />
+    <label>Telefone:</label>
+    <br />
+    {{ form.phone }}
+    <br />
+    <br />
+    <label>E-mail:</label>
+    <br />
+    {{ form.email }}
+    <br />
+    <br />
+    <label>Foto:</label>
+    <br />
+    {{ form.photo }}
+    <br />
+    <br />
+    <button type="submit">Salvar</button>
+</form>
 {% endblock body %}

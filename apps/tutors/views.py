@@ -1,28 +1,44 @@
-from django.urls import reverse_lazy
-from django.views.generic import  DeleteView, ListView, CreateView, UpdateView
-from .models import Tutor
+from django.shortcuts import render, get_object_or_404, redirect
 from .forms import TutorForm
+from .models import Tutor
 
 # Create your views here.
 
-class TutorListView(ListView):
-    model = Tutor
-    template_name = 'tutors/list_tutor.html'
-    context_object_name = 'tutors'
-
-class TutorCreateView(CreateView):
-    model = Tutor
-    form_class = TutorForm
+def add_tutor(request):
     template_name = 'tutors/add_tutor.html'
-    success_url = reverse_lazy('tutors:tutor_list')
-
-class TutorUpdateView(UpdateView):
-    model = Tutor
-    form_class = TutorForm
+    context = {}
+    if request.method == 'POST':
+        form = TutorForm(request.POST, request.FILES)
+        if form.is_valid():
+            f = form.save(commit=False)
+            f.save()
+            form.save_m2m()
+            return redirect('tutors:list_tutors')
+    else:
+        form = TutorForm()
+    context['form'] = form
+    return render(request, template_name, context)
+def list_tutors(request):
+    template_name = 'tutors/list_tutors.html'
+    tutors = Tutor.objects.filter()
+    context = {
+        'tutors': tutors
+    }
+    return render(request, template_name, context)
+def edit_tutor(request, id_tutor):
     template_name = 'tutors/add_tutor.html'
-    success_url = reverse_lazy('tutors:tutor_list')
-
-class TutorDeleteView(DeleteView):
-    model = Tutor
-    template_name = 'tutors/delete_tutor.html'
-    success_url = reverse_lazy('tutors:tutor_list')
+    context = {}
+    tutor = get_object_or_404(Tutor, id=id_tutor)
+    if request.method == 'POST':
+        form = TutorForm(request.POST, request.FILES, instance=tutor)
+        if form.is_valid():
+            form.save()
+            return redirect('tutors:list_tutors')
+    else:
+        form = TutorForm(instance=tutor)
+    context['form'] = form
+    return render(request, template_name, context)
+def delete_tutor(request, id_tutor):
+    tutor = Tutor.objects.get(id=id_tutor)
+    tutor.delete()
+    return redirect('tutors:list_tutors')

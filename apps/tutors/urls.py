@@ -1,11 +1,11 @@
 from django.urls import path
-from tutors.views import TutorCreateView, TutorDeleteView, TutorListView, TutorUpdateView
+from . import views
 
 app_name = 'tutors'
 
 urlpatterns = [
-    path('', TutorListView.as_view(), name='tutor_list'),
-    path('novo/', TutorCreateView.as_view(), name='tutor_create'),
-    path('<int:pk>/editar/', TutorUpdateView.as_view(), name='tutor_update'),
-    path('<int:pk>/excluir/', TutorDeleteView.as_view(), name='tutor_delete'),
+    path('adicionar/', views.add_tutor, name='add_tutor'),
+    path('listar/', views.list_tutors, name='list_tutors'),
+    path('editar/<int:id_tutor>/', views.edit_tutor, name='edit_tutor'),
+    path('excluir/<int:id_tutor>/', views.delete_tutor, name='delete_tutor'),
 ]
