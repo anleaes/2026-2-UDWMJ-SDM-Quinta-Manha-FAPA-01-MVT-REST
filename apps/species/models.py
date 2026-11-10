@@ -6,6 +6,7 @@ class Species(models.Model):
     vaccine = models.ManyToManyField(Vaccine, verbose_name='Vacinas', blank=True)
     name = models.CharField('Nome', max_length=100)
     description = models.TextField('Descrição', max_length=300)
+    average_lifespan_years = models.IntegerField('Expectativa de vida (anos)')
 
     class Meta:
         verbose_name = 'Espécie'
