@@ -18,3 +18,12 @@ def add_batch(request):
         form = BatchForm()
     context['form'] = form
     return render(request, template_name, context)
+
+
+def list_batches(request):
+    template_name = 'batches/list_batches.html'
+    batches = Batch.objects.filter()
+    context = {
+        'batches': batches
+    }
+    return render(request, template_name, context)
