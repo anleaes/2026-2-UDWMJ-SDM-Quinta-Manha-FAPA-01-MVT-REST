@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Lista de Lotes - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+  <br />
+  <b>Lista de Lotes</b>
+  <br />
+  <br />
+  <a href="{% url 'batches:add_batch' %}">Adicionar Lote</a>
+  <br />
+  <br />
+  <table border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Vacina</th>
+        <th>Número</th>
+        <th>Data de fabricação</th>
+        <th>Data de validade</th>
+        <th>Quantidade</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for batch in batches %}
+        <tr>
+          <th>{{ batch.id }}</th>
+          <td>{{ batch.vaccine }}</td>
+          <td>{{ batch.number }}</td>
+          <td>{{ batch.fabrication_date }}</td>
+          <td>{{ batch.expiration_date }}</td>
+          <td>{{ batch.quantity }}</td>
+          <td>
+            <a href="{% url 'batches:edit_batch' batch.id %}">Editar</a>
+            <a href="{% url 'batches:delete_batch' batch.id %}">Excluir</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="7">Nenhum lote cadastrado.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock body %}
