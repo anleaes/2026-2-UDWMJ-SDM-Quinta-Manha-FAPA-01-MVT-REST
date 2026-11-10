@@ -3,6 +3,7 @@ from vaccines.models import Vaccine
 # Create your models here.
 
 class Species(models.Model):
+    vaccine = models.ManyToManyField(Vaccine, verbose_name='Vacinas', blank=True)
 
     class Meta:
         verbose_name = 'Espécie'
