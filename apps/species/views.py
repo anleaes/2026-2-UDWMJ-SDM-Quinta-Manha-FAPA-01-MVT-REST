@@ -18,3 +18,15 @@ def list_species(request):
     template_name = 'species/list_species.html'
     species = Species.objects.prefetch_related('vaccine')
     return render(request, template_name, {'species': species})
+
+def edit_species(request, id_species):
+    template_name = 'species/add_species.html'
+    species = get_object_or_404(Species, id=id_species)
+    if request.method == 'POST':
+        form = SpeciesForm(request.POST, instance=species)
+        if form.is_valid():
+            form.save()
+            return redirect('species:list_species')
+    else:
+        form = SpeciesForm(instance=species)
+    return render(request, template_name, {'form': form})
