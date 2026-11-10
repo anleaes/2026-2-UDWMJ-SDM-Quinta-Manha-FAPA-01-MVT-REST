@@ -49,6 +49,11 @@ INSTALLED_APPS = [
     'manufacturers.apps.ManufacturersConfig',
     'persons.apps.PersonsConfig',
     'vaccines.apps.VaccinesConfig',
+    'batches.apps.BatchesConfig',
+    'species.apps.SpeciesConfig',
+    'veterinarians.apps.VeterinariansConfig',
+    'tutors.apps.TutorsConfig',
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
