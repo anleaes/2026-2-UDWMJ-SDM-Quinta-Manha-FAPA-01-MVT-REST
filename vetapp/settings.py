@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'manufacturers.apps.ManufacturersConfig',
     'persons.apps.PersonsConfig',
     'vaccines.apps.VaccinesConfig',
+    'tutors.apps.TutorsConfig',
 ]
 
 MIDDLEWARE = [

@@ -1,5 +1,5 @@
-from django.urls import include, path
-from apps.tutors.views import TutorCreateView, TutorDeleteView, TutorListView, TutorUpdateView
+from django.urls import path
+from tutors.views import TutorCreateView, TutorDeleteView, TutorListView, TutorUpdateView
 
 app_name = 'tutors'
 
@@ -8,5 +8,4 @@ urlpatterns = [
     path('novo/', TutorCreateView.as_view(), name='tutor_create'),
     path('<int:pk>/editar/', TutorUpdateView.as_view(), name='tutor_update'),
     path('<int:pk>/excluir/', TutorDeleteView.as_view(), name='tutor_delete'),
-    path('tutors/', include('apps.tutors.urls', namespace='tutors')),
 ]

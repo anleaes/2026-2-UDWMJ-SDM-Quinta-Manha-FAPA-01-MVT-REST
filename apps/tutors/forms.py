@@ -2,7 +2,7 @@ from django import forms
 from .models import Tutor
 
 class TutorForm(forms.ModelForm):
-        class Meta:
+    class Meta:
         model = Tutor
         fields = ['person', 'photo']
         widgets = {
