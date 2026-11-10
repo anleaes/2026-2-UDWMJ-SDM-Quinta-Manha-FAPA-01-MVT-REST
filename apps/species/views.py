@@ -30,3 +30,8 @@ def edit_species(request, id_species):
     else:
         form = SpeciesForm(instance=species)
     return render(request, template_name, {'form': form})
+
+def delete_species(request, id_species):
+    species = get_object_or_404(Species, id=id_species)
+    species.delete()
+    return redirect('species:list_species')
