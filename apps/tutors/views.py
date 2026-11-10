@@ -7,22 +7,22 @@ from .forms import TutorForm
 
 class TutorListView(ListView):
     model = Tutor
-    template_name = 'tutors/tutor_list.html'
+    template_name = 'tutors/list_tutor.html'
     context_object_name = 'tutors'
 
 class TutorCreateView(CreateView):
     model = Tutor
     form_class = TutorForm
-    template_name = 'tutors/tutor_form.html'
+    template_name = 'tutors/add_tutor.html'
     success_url = reverse_lazy('tutors:tutor_list')
 
 class TutorUpdateView(UpdateView):
     model = Tutor
     form_class = TutorForm
-    template_name = 'tutors/tutor_form.html'
+    template_name = 'tutors/add_tutor.html'
     success_url = reverse_lazy('tutors:tutor_list')
 
 class TutorDeleteView(DeleteView):
     model = Tutor
-    template_name = 'tutors/tutor_confirm_delete.html'
+    template_name = 'tutors/delete_tutor.html'
     success_url = reverse_lazy('tutors:tutor_list')
