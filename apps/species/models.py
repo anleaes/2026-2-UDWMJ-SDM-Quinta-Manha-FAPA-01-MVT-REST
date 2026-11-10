@@ -4,6 +4,7 @@ from vaccines.models import Vaccine
 
 class Species(models.Model):
     vaccine = models.ManyToManyField(Vaccine, verbose_name='Vacinas', blank=True)
+    name = models.CharField('Nome', max_length=100)
 
     class Meta:
         verbose_name = 'Espécie'
