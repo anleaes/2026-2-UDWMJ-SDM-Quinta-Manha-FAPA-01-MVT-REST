@@ -9,5 +9,5 @@ class Tutor(Person):
         verbose_name = 'Tutor'
         verbose_name_plural = 'Tutores'
         ordering = ['id']
-    def _str_(self):
+    def __str__(self):
         return f'{self.name}'
