@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.views.generic import  ListView, CreateView, UpdateView
+from django.views.generic import  DeleteView, ListView, CreateView, UpdateView
 from .models import Tutor
 from .forms import TutorForm
 
@@ -20,4 +20,9 @@ class TutorUpdateView(UpdateView):
     model = Tutor
     form_class = TutorForm
     template_name = 'tutors/tutor_form.html'
+    success_url = reverse_lazy('tutors:tutor_list')
+
+class TutorDeleteView(DeleteView):
+    model = Tutor
+    template_name = 'tutors/tutor_confirm_delete.html'
     success_url = reverse_lazy('tutors:tutor_list')
