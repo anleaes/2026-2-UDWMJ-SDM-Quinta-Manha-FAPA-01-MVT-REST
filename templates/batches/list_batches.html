@@ -21,6 +21,7 @@
         <th>Data de fabricação</th>
         <th>Data de validade</th>
         <th>Quantidade</th>
+        <th>Ações</th>
       </tr>
     </thead>
     <tbody>
@@ -32,10 +33,14 @@
           <td>{{ batch.fabrication_date }}</td>
           <td>{{ batch.expiration_date }}</td>
           <td>{{ batch.quantity }}</td>
+          <td>
+            <a href="{% url 'batches:edit_batch' batch.id %}">Editar</a>
+            <a href="{% url 'batches:delete_batch' batch.id %}">Excluir</a>
+          </td>
         </tr>
       {% empty %}
         <tr>
-          <td colspan="6">Nenhum lote cadastrado.</td>
+          <td colspan="7">Nenhum lote cadastrado.</td>
         </tr>
       {% endfor %}
     </tbody>
