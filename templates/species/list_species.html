@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Lista de Espécies - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+
+<br />
+    <a href="{% url 'species:add_species' %}">Cadastro de nova espécie</a>
+<br />
+<br />
+<b>Lista de Espécies</b>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Expectativa de vida</th>
+            <th>Ativa</th>
+            <th>Vacinas</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in species %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.average_lifespan_years }} anos</td>
+                <td>{% if item.is_active %}Sim{% else %}Não{% endif %}</td>
+                <td>
+                    <ul>
+                    {% for vaccine in item.vaccine.all %}
+                        <li>{{ vaccine.name }}</li>
+                    {% empty %}
+                        <li>Sem vacinas</li>
+                    {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                    <a href="{% url 'species:edit_species' item.id %}">Editar</a>
+                </td>
+                <td>
+                    <a href="{% url 'species:delete_species' item.id %}">Excluir</a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="8">Nenhuma espécie cadastrada.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock body %}

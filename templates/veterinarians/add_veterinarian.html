@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Cadastro de Veterinario - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+
+<br />
+<b>Cadastro de Veterinario</b>
+<br />
+<br />
+<form action="" method="POST">
+    {% csrf_token %}
+    <label>Nome:</label>
+    <br />
+    {{ form.name }}
+    <br />
+    <br />
+    <label>CPF:</label>
+    <br />
+    {{ form.cpf }}
+    <br />
+    <br />
+    <label>Telefone:</label>
+    <br />
+    {{ form.phone }}
+    <br />
+    <br />
+    <label>E-mail:</label>
+    <br />
+    {{ form.email }}
+    <br />
+    <br />
+    <label>CRMV:</label>
+    <br />
+    {{ form.crmv }}
+    <br />
+    <br />
+    <label>Ativo:</label>
+    <br />
+    {{ form.is_active }}
+    <br />
+    <br />
+    <button type="submit">Salvar</button>
+</form>
+
+{% endblock body %}

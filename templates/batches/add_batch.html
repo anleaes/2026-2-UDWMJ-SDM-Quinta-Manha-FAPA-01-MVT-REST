@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Cadastro de Lote - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+  <br />
+  <b>Cadastro de Lote</b>
+  <br />
+  <br />
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <label>Vacina:</label>
+    <br />
+    {{ form.vaccine }}
+    {{ form.vaccine.errors }}
+    <br />
+    <br />
+    <label>Número:</label>
+    <br />
+    {{ form.number }}
+    {{ form.number.errors }}
+    <br />
+    <br />
+    <label>Data de fabricação (DD/MM/AAAA):</label>
+    <br />
+    {{ form.fabrication_date }}
+    {{ form.fabrication_date.errors }}
+    <br />
+    <br />
+    <label>Data de validade (DD/MM/AAAA):</label>
+    <br />
+    {{ form.expiration_date }}
+    {{ form.expiration_date.errors }}
+    <br />
+    <br />
+    <label>Quantidade:</label>
+    <br />
+    {{ form.quantity }}
+    {{ form.quantity.errors }}
+    <br />
+    <br />
+    <button type="submit">Salvar</button>
+  </form>
+  <br />
+  <a href="{% url 'batches:list_batches' %}">Voltar para a lista</a>
+{% endblock body %}
