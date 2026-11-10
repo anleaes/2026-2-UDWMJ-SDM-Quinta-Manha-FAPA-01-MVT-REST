@@ -42,3 +42,9 @@ def edit_batch(request, id_batch):
         form = BatchForm(instance=batch)
     context['form'] = form
     return render(request, template_name, context)
+
+
+def delete_batch(request, id_batch):
+    batch = Batch.objects.get(id=id_batch)
+    batch.delete()
+    return redirect('batches:list_batches')
