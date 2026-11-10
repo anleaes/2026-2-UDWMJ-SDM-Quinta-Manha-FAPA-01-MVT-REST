@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}
+    Lista de Tutores - {{ block.super }}
+{% endblock title %}
+{% block body %}
+<br />
+<a href="{% url 'tutors:add_tutor' %}">Cadastro de novo tutor</a>
+<br />
+<br />
+<b>Lista de Tutores</b>
+<br />
+<br />
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Telefone</th>
+            <th>E-mail</th>
+            <th>Foto</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tutor in tutors %}
+        <tr>
+            <td>{{ tutor.id }}</td>
+            <td>{{ tutor.name }}</td>
+            <td>{{ tutor.cpf }}</td>
+            <td>{{ tutor.phone }}</td>
+            <td>{{ tutor.email }}</td>
+            <td>
+                {% if tutor.photo %}
+                    <img src="{{ tutor.photo.url }}" width="50" height="50" />
+                {% else %}
+                    Sem foto
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'tutors:edit_tutor' tutor.id %}">Editar</a>
+            </td>
+            <td>
+                <a href="{% url 'tutors:delete_tutor' tutor.id %}">Excluir</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="8">Nenhum tutor cadastrado.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock body %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}
+    Cadastro de Tutor - {{ block.super }}
+{% endblock title %}
+{% block body %}
+<br />
+<b>Cadastro de Tutor</b>
+<br />
+<br />
+<form action="" method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+    <label>Nome:</label>
+    <br />
+    {{ form.name }}
+    <br />
+    <br />
+    <label>CPF:</label>
+    <br />
+    {{ form.cpf }}
+    <br />
+    <br />
+    <label>Telefone:</label>
+    <br />
+    {{ form.phone }}
+    <br />
+    <br />
+    <label>E-mail:</label>
+    <br />
+    {{ form.email }}
+    <br />
+    <br />
+    <label>Foto:</label>
+    <br />
+    {{ form.photo }}
+    <br />
+    <br />
+    <button type="submit">Salvar</button>
+</form>
+{% endblock body %}
