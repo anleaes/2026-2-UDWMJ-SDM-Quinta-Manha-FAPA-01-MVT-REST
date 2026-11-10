@@ -27,3 +27,18 @@ def list_batches(request):
         'batches': batches
     }
     return render(request, template_name, context)
+
+
+def edit_batch(request, id_batch):
+    template_name = 'batches/add_batch.html'
+    context = {}
+    batch = get_object_or_404(Batch, id=id_batch)
+    if request.method == 'POST':
+        form = BatchForm(request.POST, instance=batch)
+        if form.is_valid():
+            form.save()
+            return redirect('batches:list_batches')
+    else:
+        form = BatchForm(instance=batch)
+    context['form'] = form
+    return render(request, template_name, context)
