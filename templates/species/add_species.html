@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Espécie - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+
+<br />
+<b>Cadastro de Espécie</b>
+<br />
+<br />
+<form action="" method="POST">
+{% csrf_token %}
+    <label>Nome</label>
+    <br />
+    {{ form.name }} {{ form.name.errors }}
+    <br />
+    <br />
+    <label>Descrição</label>
+    <br />
+    {{ form.description }} {{ form.description.errors }}
+    <br />
+    <br />
+    <label>Expectativa de vida (anos)</label>
+    <br />
+    {{ form.average_lifespan_years }} {{ form.average_lifespan_years.errors }}
+    <br />
+    <br />
+    <label>Ativa</label>
+    <br />
+    {{ form.is_active }}
+    <br />
+    <br />
+    <label>Vacinas</label>
+    <br />
+    {{ form.vaccine }} {{ form.vaccine.errors }}
+    <br />
+    <br />
+    <button type="submit">Salvar</button>
+</form>
+<br />
+<br />
+<a href="{% url 'species:list_species' %}">Voltar para a lista</a>
+
+{% endblock body %}
