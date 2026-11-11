@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Lista de Animais - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+<br />
+    <a href="{% url 'animals:animal_create' %}">Cadastro de novo animal</a>
+<br />
+<br />
+<b>Lista de Animais</b>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Espécie</th>
+            <th>Tutor</th>
+            <th>Sexo</th>
+            <th>Peso (kg)</th>
+            <th>Microchip</th>
+            <th>Foto</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for animal in animals %}
+        <tr>
+            <td>{{ animal.id }}</td>
+            <td>{{ animal.name }}</td>
+            <td>{{ animal.species.name }}</td>
+            <td>{{ animal.tutor.person.first_name }}</td>
+            <td>{{ animal.get_sex_display }}</td>
+            <td>{{ animal.weight_kg }}</td>
+            <td>{{ animal.microchip }}</td>
+            <td>
+                {% if animal.photo %}
+                    <img src="{{ animal.photo.url }}" width="80">
+                {% else %}
+                    Sem foto
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'animals:animal_update' animal.id %}">Editar</a>
+            </td>
+            <td>
+                <a href="{% url 'animals:animal_delete' animal.id %}">Excluir</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="10">Nenhum animal cadastrado.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock body %}
