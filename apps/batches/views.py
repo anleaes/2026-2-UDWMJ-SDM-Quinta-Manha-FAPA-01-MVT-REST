@@ -37,8 +37,7 @@ def edit_batch(request, id_batch):
         if form.is_valid():
             form.save()
             return redirect('batches:list_batches')
-    else:
-        form = BatchForm(instance=batch)
+    form = BatchForm(instance=batch)
     context['form'] = form
     return render(request, template_name, context)
 
