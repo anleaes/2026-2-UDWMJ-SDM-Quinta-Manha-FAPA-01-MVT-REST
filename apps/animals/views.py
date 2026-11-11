@@ -34,3 +34,8 @@ def animal_update(request, pk):
     form = AnimalForm(instance=animal)
     context['form'] = form
     return render(request, template_name, context)
+
+def animal_delete(request, pk):
+    animal = get_object_or_404(Animal, id=pk)
+    animal.delete()
+    return redirect('animals:animal_list')
