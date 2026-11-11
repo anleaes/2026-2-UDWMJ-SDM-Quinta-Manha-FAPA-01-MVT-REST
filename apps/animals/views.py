@@ -5,13 +5,13 @@ from .models import Animal
 # Create your views here.
 
 def animal_list(request):
-    template_name = 'animals/animal_list.html'
+    template_name = 'animals/list_animals.html'
     animals = Animal.objects.all()
     context = {'animals': animals}
     return render(request, template_name, context)
 
 def animal_create(request):
-    template_name = 'animals/animal_form.html'
+    template_name = 'animals/add_animal.html'
     context = {}
     if request.method == 'POST':
         form = AnimalForm(request.POST, request.FILES)
@@ -23,7 +23,7 @@ def animal_create(request):
     return render(request, template_name, context)
 
 def animal_update(request, pk):
-    template_name = 'animals/animal_form.html'
+    template_name = 'animals/add_animal.html'
     context = {}
     animal = get_object_or_404(Animal, id=pk)
     if request.method == 'POST':
