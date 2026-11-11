@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Lista de Vacinações - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+
+<br />
+    <a href="{% url 'vaccinations:add_vaccination' %}">Cadastro de nova vacinação</a>
+<br />
+<br />
+<b>Lista de Vacinações</b>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Vacina</th>
+            <th>Lote</th>
+            <th>Aplicada em</th>
+            <th>Dose</th>
+            <th>Local</th>
+            <th>Peso (kg)</th>
+            <th>Observações</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for vaccination in vaccinations %}
+            <tr>
+                <td>{{ vaccination.id }}</td>
+                <td>{{ vaccination.batch.vaccine.name }}</td>
+                <td>{{ vaccination.batch.number }}</td>
+                <td>{{ vaccination.applied_at }}</td>
+                <td>{{ vaccination.dose_number }}</td>
+                <td>{{ vaccination.application_site }}</td>
+                <td>{{ vaccination.weight_kg }}</td>
+                <td>{{ vaccination.notes }}</td>
+                <td>
+                    <a href="{% url 'vaccinations:edit_vaccination' vaccination.id %}">Editar</a>
+                </td>
+                <td>
+                    <a href="{% url 'vaccinations:delete_vaccination' vaccination.id %}">Excluir</a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="10">Nenhuma vacinação cadastrada.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock body %}
