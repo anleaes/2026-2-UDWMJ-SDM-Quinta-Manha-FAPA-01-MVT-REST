@@ -14,8 +14,7 @@ def add_veterinarian(request):
             f.save()
             form.save_m2m()
             return redirect('veterinarians:list_veterinarians')
-    else:
-        form = VeterinarianForm()
+    form = VeterinarianForm()
     context['form'] = form
     return render(request, template_name, context)
 
