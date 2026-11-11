@@ -18,8 +18,7 @@ def add_manufacturer(request):
             f.save()
             form.save_m2m()
             return redirect('manufacturers:list_manufacturers')
-    else:
-        form = ManufacturerForm()
+    form = ManufacturerForm()
 
     context['form'] = form
     return render(request, template_name, context)
