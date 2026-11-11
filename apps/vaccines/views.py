@@ -14,8 +14,7 @@ def add_vaccine(request):
             f.save()
             form.save_m2m()
             return redirect('vaccines:list_vaccines')
-    else:
-        form = VaccineForm()
+    form = VaccineForm()
     context['form'] = form
     return render(request, template_name, context)
 
