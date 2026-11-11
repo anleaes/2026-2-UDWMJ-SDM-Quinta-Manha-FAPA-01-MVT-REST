@@ -37,8 +37,7 @@ def edit_vaccine(request, id_vaccine):
         if form.is_valid():
             form.save()
             return redirect('vaccines:list_vaccines')
-    else:
-        form = VaccineForm(instance=vaccine)
+    form = VaccineForm(instance=vaccine)
     context['form'] = form
     return render(request, template_name, context)
 
