@@ -29,7 +29,7 @@ urlpatterns = [
     path('especies/', include('species.urls', namespace='species')),
     path('veterinarios/', include('veterinarians.urls', namespace='veterinarians')),
     path('tutores/', include('tutors.urls', namespace='tutors')),
-    #path('animais/', include('animals.urls', namespace='animals')),
+    path('animais/', include('animals.urls', namespace='animals')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
