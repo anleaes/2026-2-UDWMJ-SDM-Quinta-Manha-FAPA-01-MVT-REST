@@ -3,3 +3,7 @@ from . import views
 
 app_name = 'animals'
 urlpatterns = [path('listar/', views.animal_list, name='animal_list')]
+urlpatterns = [
+    path('listar/', views.animal_list, name='animal_list'),
+    path('adicionar/', views.animal_create, name='animal_create'),
+]
