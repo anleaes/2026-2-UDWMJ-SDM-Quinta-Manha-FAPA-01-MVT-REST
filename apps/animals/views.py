@@ -21,3 +21,16 @@ def animal_create(request):
     form = AnimalForm()
     context['form'] = form
     return render(request, template_name, context)
+
+def animal_update(request, pk):
+    template_name = 'animals/animal_form.html'
+    context = {}
+    animal = get_object_or_404(Animal, id=pk)
+    if request.method == 'POST':
+        form = AnimalForm(request.POST, request.FILES, instance=animal)
+        if form.is_valid():
+            form.save()
+            return redirect('animals:animal_list')
+    form = AnimalForm(instance=animal)
+    context['form'] = form
+    return render(request, template_name, context)
