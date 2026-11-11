@@ -37,8 +37,7 @@ def edit_veterinarian(request, id_veterinarian):
         if form.is_valid():
             form.save()
             return redirect('veterinarians:list_veterinarians')
-    else:
-        form = VeterinarianForm(instance=veterinarian)
+    form = VeterinarianForm(instance=veterinarian)
     context['form'] = form
     return render(request, template_name, context)
 
