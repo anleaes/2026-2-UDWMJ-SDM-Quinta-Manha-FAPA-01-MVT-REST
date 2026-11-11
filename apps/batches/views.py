@@ -14,8 +14,7 @@ def add_batch(request):
             f.save()
             form.save_m2m()
             return redirect('batches:list_batches')
-    else:
-        form = BatchForm()
+    form = BatchForm()
     context['form'] = form
     return render(request, template_name, context)
 
