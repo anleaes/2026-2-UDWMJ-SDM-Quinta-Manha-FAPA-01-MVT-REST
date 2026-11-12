@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Vacinação - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+
+<br />
+<b>Cadastro de Vacinação</b>
+<br />
+<br />
+<form action="" method="POST">
+{% csrf_token %}
+    <label>Lote</label>
+    <br />
+    {{ form.batch }} {{ form.batch.errors }}
+    <br />
+    <br />
+    <label>Data e hora da aplicação</label>
+    <br />
+    {{ form.applied_at }} {{ form.applied_at.errors }}
+    <br />
+    <br />
+    <label>Número da dose</label>
+    <br />
+    {{ form.dose_number }} {{ form.dose_number.errors }}
+    <br />
+    <br />
+    <label>Local da aplicação</label>
+    <br />
+    {{ form.application_site }} {{ form.application_site.errors }}
+    <br />
+    <br />
+    <label>Peso (kg)</label>
+    <br />
+    {{ form.weight_kg }} {{ form.weight_kg.errors }}
+    <br />
+    <br />
+    <label>Observações</label>
+    <br />
+    {{ form.notes }} {{ form.notes.errors }}
+    <br />
+    <br />
+    <button type="submit">Salvar</button>
+</form>
+
+{% endblock body %}
