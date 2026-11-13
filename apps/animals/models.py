@@ -17,7 +17,7 @@ class Animal(models.Model):
     birth_date = models.DateField('Data de Nascimento')
     sex = models.CharField('Sexo', max_length=1, choices=SEX_CHOICES)
     weight_kg = models.FloatField('Peso (kg)')
-    microchip = models.CharField('Microchip', max_length=50, unique=True)
+    microchip = models.CharField('Microchip', max_length=50, unique=True, null=True, blank=True)
     photo = models.ImageField('Foto', upload_to='animals/', blank=True, null=True)
 
     class Meta:

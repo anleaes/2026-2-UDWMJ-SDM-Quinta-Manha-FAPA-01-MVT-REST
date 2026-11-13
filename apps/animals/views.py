@@ -4,38 +4,44 @@ from .models import Animal
 
 # Create your views here.
 
-def animal_list(request):
+def list_animals(request):
     template_name = 'animals/list_animals.html'
     animals = Animal.objects.all()
     context = {'animals': animals}
     return render(request, template_name, context)
 
-def animal_create(request):
+def add_animal(request):
     template_name = 'animals/add_animal.html'
     context = {}
     if request.method == 'POST':
         form = AnimalForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('animals:animal_list')
-    form = AnimalForm()
+            f = form.save(commit=False)
+            f.save()
+            form.save_m2m()
+            return redirect('animals:list_animals')
+    else:
+        form = AnimalForm()
     context['form'] = form
     return render(request, template_name, context)
 
-def animal_update(request, pk):
+def edit_animal(request, id_animal):
     template_name = 'animals/add_animal.html'
     context = {}
-    animal = get_object_or_404(Animal, id=pk)
+    animal = get_object_or_404(Animal, id=id_animal)
     if request.method == 'POST':
         form = AnimalForm(request.POST, request.FILES, instance=animal)
         if form.is_valid():
-            form.save()
-            return redirect('animals:animal_list')
-    form = AnimalForm(instance=animal)
+            f = form.save(commit=False)
+            f.save()
+            form.save_m2m()
+            return redirect('animals:list_animals')
+    else:
+        form = AnimalForm(instance=animal)
     context['form'] = form
     return render(request, template_name, context)
 
-def animal_delete(request, pk):
-    animal = get_object_or_404(Animal, id=pk)
+def delete_animal(request, id_animal):
+    animal = Animal.objects.get(id=id_animal)
     animal.delete()
-    return redirect('animals:animal_list')
+    return redirect('animals:list_animals')
