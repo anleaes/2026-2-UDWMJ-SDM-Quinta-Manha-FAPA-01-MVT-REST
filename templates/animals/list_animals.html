@@ -6,7 +6,7 @@
 
 {% block body %}
 <br />
-    <a href="{% url 'animals:animal_create' %}">Cadastro de novo animal</a>
+    <a href="{% url 'animals:add_animal' %}">Cadastro de novo animal</a>
 <br />
 <br />
 <b>Lista de Animais</b>
@@ -43,10 +43,10 @@
                 {% endif %}
             </td>
             <td>
-                <a href="{% url 'animals:animal_update' animal.id %}">Editar</a>
+                <a href="{% url 'animals:edit_animal' animal.id %}">Editar</a>
             </td>
             <td>
-                <a href="{% url 'animals:animal_delete' animal.id %}">Excluir</a>
+                <a href="{% url 'animals:delete_animal' animal.id %}">Excluir</a>
             </td>
         </tr>
         {% empty %}

@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import AnimalForm
 from .models import Animal
 
-# Create your views here.
+# Create your views here.# Create your views here.
 
 def list_animals(request):
     template_name = 'animals/list_animals.html'
@@ -20,8 +20,7 @@ def add_animal(request):
             f.save()
             form.save_m2m()
             return redirect('animals:list_animals')
-    else:
-        form = AnimalForm()
+    form = AnimalForm()
     context['form'] = form
     return render(request, template_name, context)
 
@@ -36,8 +35,7 @@ def edit_animal(request, id_animal):
             f.save()
             form.save_m2m()
             return redirect('animals:list_animals')
-    else:
-        form = AnimalForm(instance=animal)
+    form = AnimalForm(instance=animal)
     context['form'] = form
     return render(request, template_name, context)
 
