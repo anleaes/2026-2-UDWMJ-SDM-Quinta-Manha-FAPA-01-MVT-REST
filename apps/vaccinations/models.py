@@ -9,6 +9,7 @@ class Vaccination(models.Model):
     dose_number = models.IntegerField('Número da dose')
     application_site = models.CharField('Local da aplicação', max_length=100)
     weight_kg = models.FloatField('Peso (kg)')
+    notes = models.TextField('Observações', blank=True)
 
     class Meta:
         verbose_name = 'Vacinação'
