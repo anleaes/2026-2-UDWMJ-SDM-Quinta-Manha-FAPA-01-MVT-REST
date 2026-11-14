@@ -17,3 +17,12 @@ def add_medication(request):
     form = MedicationForm()
     context['form'] = form
     return render(request, template_name, context)
+
+
+def list_medications(request):
+    template_name = 'medications/list_medications.html'
+    medications = Medication.objects.filter()
+    context = {
+        'medications': medications
+    }
+    return render(request, template_name, context)
