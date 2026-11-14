@@ -40,3 +40,9 @@ def edit_medication(request, id_medication):
     form = MedicationForm(instance=medication)
     context['form'] = form
     return render(request, template_name, context)
+
+
+def delete_medication(request, id_medication):
+    medication = Medication.objects.get(id=id_medication)
+    medication.delete()
+    return redirect('medications:list_medications')
