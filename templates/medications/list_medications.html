@@ -23,6 +23,8 @@ Lista de Medicamentos - {{ block.super }}
             <th>Via de administração</th>
             <th>Preço</th>
             <th>Controlado</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -35,10 +37,16 @@ Lista de Medicamentos - {{ block.super }}
             <td>{{ medication.get_administration_route_display }}</td>
             <td>R$ {{ medication.price }}</td>
             <td>{{ medication.is_controlled|yesno:"Sim,Não" }}</td>
+            <td>
+                <a href="{% url 'medications:edit_medication' medication.id %}">Editar</a>
+            </td>
+            <td>
+                <a href="{% url 'medications:delete_medication' medication.id %}">Excluir</a>
+            </td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="7">Nenhum medicamento cadastrado.</td>
+            <td colspan="9">Nenhum medicamento cadastrado.</td>
         </tr>
         {% endfor %}
     </tbody>
