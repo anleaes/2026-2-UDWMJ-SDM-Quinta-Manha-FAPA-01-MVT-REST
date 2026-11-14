@@ -18,3 +18,12 @@ def add_vaccination(request):
     context['form'] = form
     return render(request, template_name, context)
 
+
+def list_vaccinations(request):
+    template_name = 'vaccinations/list_vaccinations.html'
+    vaccinations = Vaccination.objects.filter()
+    context = {
+        'vaccinations': vaccinations
+    }
+    return render(request, template_name, context)
+
