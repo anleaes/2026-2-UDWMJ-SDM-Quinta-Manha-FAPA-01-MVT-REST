@@ -4,6 +4,7 @@ from batches.models import Batch
 # Create your models here.
 
 class Vaccination(models.Model):
+    batch = models.ForeignKey(Batch, on_delete=models.PROTECT, verbose_name='Lote')
 
     class Meta:
         verbose_name = 'Vacinação'
