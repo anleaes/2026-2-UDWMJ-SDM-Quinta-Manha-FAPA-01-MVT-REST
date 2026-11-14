@@ -14,3 +14,11 @@ class Medication(models.Model):
     ])
     price = models.DecimalField('Preço', max_digits=10, decimal_places=2)
     is_controlled = models.BooleanField('Controlado', default=False)
+
+    class Meta:
+        verbose_name = 'Medicamento'
+        verbose_name_plural = 'Medicamentos'
+        ordering = ['id']
+
+    def __str__(self):
+        return f'{self.name}'
