@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Lista de Medicamentos - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+
+<br />
+<a href="{% url 'medications:add_medication' %}">Cadastro de novo medicamento</a>
+<br />
+<br />
+<b>Lista de Medicamentos</b>
+<br />
+<br />
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Fabricante</th>
+            <th>Nome</th>
+            <th>Princípio ativo</th>
+            <th>Via de administração</th>
+            <th>Preço</th>
+            <th>Controlado</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for medication in medications %}
+        <tr>
+            <td>{{ medication.id }}</td>
+            <td>{{ medication.manufacturer.name }}</td>
+            <td>{{ medication.name }}</td>
+            <td>{{ medication.active_ingredient }}</td>
+            <td>{{ medication.get_administration_route_display }}</td>
+            <td>R$ {{ medication.price }}</td>
+            <td>{{ medication.is_controlled|yesno:"Sim,Não" }}</td>
+            <td>
+                <a href="{% url 'medications:edit_medication' medication.id %}">Editar</a>
+            </td>
+            <td>
+                <a href="{% url 'medications:delete_medication' medication.id %}">Excluir</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="9">Nenhum medicamento cadastrado.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock body %}

@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'veterinarians.apps.VeterinariansConfig',
     'tutors.apps.TutorsConfig',
     'animals.apps.AnimalsConfig',
+    'medications.apps.MedicationsConfig',
 ]
 
 MIDDLEWARE = [
