@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import AnimalForm
 from .models import Animal
 
-# Create your views here.# Create your views here.
+# Create your views here.
 
 def list_animals(request):
     template_name = 'animals/list_animals.html'
