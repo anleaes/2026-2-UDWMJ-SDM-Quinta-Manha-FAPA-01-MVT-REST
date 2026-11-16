@@ -28,7 +28,7 @@
     <a href="#"><button onclick="alertarMensagem()">Vacinacoes</button></a>
     <a href="#"><button onclick="alertarMensagem()">Receitas</button></a>
     <a href="#"><button onclick="alertarMensagem()">Certificados</button></a>
-    <a href="#"><button onclick="alertarMensagem()">Agendamentos</button></a>
+    <a href="{% url 'appointments:list_appointments' %}"><button>Agendamentos</button></a>
     <br />
 
     {% block body %}
