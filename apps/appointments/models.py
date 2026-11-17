@@ -1,6 +1,7 @@
 from django.db import models
 from animals.models import Animal
 from veterinarians.models import Veterinarian
+from django.utils import timezone
 
 # Create your models here.
 
@@ -27,4 +28,4 @@ class Appointment(models.Model):
         ordering = ['id']
 
     def __str__(self):
-        return f'{self.animal} - {self.scheduled_at:%d/%m/%Y %H:%M}'
+        return f'{self.animal} - {timezone.localtime(self.scheduled_at):%d/%m/%Y %H:%M}'
