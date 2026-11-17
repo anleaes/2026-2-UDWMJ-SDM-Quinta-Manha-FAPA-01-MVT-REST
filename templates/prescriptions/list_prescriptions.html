@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Lista de Prescrições - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+
+<br />
+<a href="{% url 'prescriptions:add_prescription' %}">Cadastro de nova prescrição</a>
+<br />
+<br />
+<b>Lista de Prescrições</b>
+<br />
+<br />
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Atendimento</th>
+            <th>Medicamento</th>
+            <th>Dosagem</th>
+            <th>Frequência</th>
+            <th>Duração (dias)</th>
+            <th>Instruções</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for prescription in prescriptions %}
+        <tr>
+            <td>{{ prescription.id }}</td>
+            <td>{{ prescription.appointment }}</td>
+            <td>{{ prescription.medication.name }}</td>
+            <td>{{ prescription.dosage }}</td>
+            <td>{{ prescription.frequency }}</td>
+            <td>{{ prescription.duration_days }}</td>
+            <td>{{ prescription.instructions|default:"-" }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7">Nenhuma prescrição cadastrada.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock body %}
