@@ -17,3 +17,12 @@ def add_appointment(request):
     form = AppointmentForm()
     context['form'] = form
     return render(request, template_name, context)
+
+
+def list_appointments(request):
+    template_name = 'appointments/list_appointments.html'
+    appointments = appointments = Appointment.objects.filter()#Appointment.objects.prefetch_related('vaccinations')
+    context = {
+        'appointments': appointments
+    }
+    return render(request, template_name, context)
