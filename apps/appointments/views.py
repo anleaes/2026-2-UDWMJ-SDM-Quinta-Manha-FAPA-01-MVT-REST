@@ -62,3 +62,11 @@ def complete_appointment(request, id_appointment):
         appointment.status = 'Concluida'
         appointment.save()
     return redirect('appointments:list_appointments')
+
+
+def cancel_appointment(request, id_appointment):
+    appointment = get_object_or_404(Appointment, id=id_appointment)
+    if appointment.status != 'Cancelada':
+        appointment.status = 'Cancelada'
+        appointment.save()
+    return redirect('appointments:list_appointments')
