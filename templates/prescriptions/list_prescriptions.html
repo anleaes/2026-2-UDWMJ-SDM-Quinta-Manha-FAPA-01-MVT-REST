@@ -23,6 +23,8 @@ Lista de Prescrições - {{ block.super }}
             <th>Frequência</th>
             <th>Duração (dias)</th>
             <th>Instruções</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -35,10 +37,16 @@ Lista de Prescrições - {{ block.super }}
             <td>{{ prescription.frequency }}</td>
             <td>{{ prescription.duration_days }}</td>
             <td>{{ prescription.instructions|default:"-" }}</td>
+            <td>
+                <a href="{% url 'prescriptions:edit_prescription' prescription.id %}">Editar</a>
+            </td>
+            <td>
+                <a href="{% url 'prescriptions:delete_prescription' prescription.id %}">Excluir</a>
+            </td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="7">Nenhuma prescrição cadastrada.</td>
+            <td colspan="9">Nenhuma prescrição cadastrada.</td>
         </tr>
         {% endfor %}
     </tbody>
