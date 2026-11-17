@@ -46,3 +46,12 @@ def delete_appointment(request, id_appointment):
     appointment = Appointment.objects.get(id=id_appointment)
     appointment.delete()
     return redirect('appointments:list_appointments')
+
+
+def confirm_appointment(request, id_appointment):
+    appointment = get_object_or_404(Appointment, id=id_appointment)
+    if appointment.status != 'Confirmada':
+        appointment.status = 'Confirmada'
+        appointment.save()
+    return redirect('appointments:list_appointments')
+
