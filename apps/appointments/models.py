@@ -11,6 +11,12 @@ class Appointment(models.Model):
         ('Vacinacao', 'Vacinacao'),
         ('Retorno', 'Retorno'),
     ])
+    status = models.CharField('Status', max_length=20, null=True, blank=True, default='Agendada', choices=[
+        ('Agendada', 'Agendada'),
+        ('Confirmada', 'Confirmada'),
+        ('Concluida', 'Concluida'),
+        ('Cancelada', 'Cancelada'),
+    ])
 
     class Meta:
         verbose_name = 'Consulta'
