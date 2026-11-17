@@ -11,3 +11,11 @@ class Prescription(models.Model):
     frequency = models.CharField('Frequência', max_length=50)
     duration_days = models.PositiveIntegerField('Duração (dias)')
     instructions = models.TextField('Instruções', null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Prescrição'
+        verbose_name_plural = 'Prescrições'
+        ordering = ['id']
+
+    def __str__(self):
+        return f'{self.medication} - {self.appointment.animal}'
