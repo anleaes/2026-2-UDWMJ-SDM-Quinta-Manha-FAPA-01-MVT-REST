@@ -17,6 +17,7 @@ class Appointment(models.Model):
         ('Concluida', 'Concluida'),
         ('Cancelada', 'Cancelada'),
     ])
+    notes = models.TextField('Observacoes', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Consulta'
