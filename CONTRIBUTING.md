@@ -120,13 +120,14 @@ CREATE TABLE vaccination (
     - Pasta do App (Plural): `vaccinations`
     - Classe (Singular): `Vaccination`
     - Atributos: `applied_at`, `dose_number`, `application_site`, `weight_kg`, `notes`
-    - Relacionamentos: `batch` (ForeignKey -> `Batch`)
+    - Relacionamentos: `batch` (ForeignKey -> `Batch`), `appointment` (ForeignKey -> `Appointment`)
 
 11. **Receita**
     - Branch no Git (Singular): `recipe`
     - Pasta do App (Plural): `recipes`
     - Classe (Singular): `Recipe`
     - Atributos: `number`, `issue_date`, `valid_until`, `recipe_type`, `pdf_file`, `notes`
+    - Relacionamentos: `prescription` (OneToOneField -> `Prescription`)
 
 12. **Certificado**
     - Branch no Git (Singular): `certificate`
@@ -140,11 +141,11 @@ CREATE TABLE vaccination (
     - Pasta do App (Plural): `appointments`
     - Classe (Singular): `Appointment`
     - Atributos: `scheduled_at`, `appointment_type`, `status`, `notes`
-    - Relacionamentos: `animal` (ForeignKey -> `Animal`), `veterinarian` (ForeignKey -> `Veterinarian`), `vaccination` (ManyToManyField -> `Vaccination`)
+    - Relacionamentos: `animal` (ForeignKey -> `Animal`), `veterinarian` (ForeignKey -> `Veterinarian`)
 
 14. **Prescrição**
     - Branch no Git (Singular): `prescription`
     - Pasta do App (Plural): `prescriptions`
     - Classe (Singular): `Prescription`
     - Atributos: `dosage`, `frequency`, `duration_days`, `instructions`
-    - Relacionamentos: `appointment` (ForeignKey -> `Appointment`), `medication` (ForeignKey -> `Medication`), `recipe` (OneToOneField -> `Recipe`)
+    - Relacionamentos: `appointment` (ForeignKey -> `Appointment`), `medication` (ForeignKey -> `Medication`)
