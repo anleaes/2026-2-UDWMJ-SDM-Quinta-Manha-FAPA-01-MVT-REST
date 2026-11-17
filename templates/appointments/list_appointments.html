@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Lista de Consultas - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+
+<br />
+    <a href="{% url 'appointments:add_appointment' %}">Cadastro de nova consulta</a>
+<br />
+<br />
+<b>Lista de Consultas</b>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Animal</th>
+            <th>Veterinario</th>
+            <th>Data e hora</th>
+            <th>Tipo</th>
+            <th>Status</th>
+            <th>Vacinacoes</th>
+            <th>Observacoes</th>
+            <th>Acoes</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for appointment in appointments %}
+            <tr>
+                <td>{{ appointment.id }}</td>
+                <td>{{ appointment.animal }}</td>
+                <td>{{ appointment.veterinarian }}</td>
+                <td>{{ appointment.scheduled_at }}</td>
+                <td>{{ appointment.get_appointment_type_display }}</td>
+                <td>{{ appointment.get_status_display }}</td>
+                <td>
+                    <ul>
+                    {% for vaccination in appointment.vaccinations.all %}
+                        <li>{{ vaccination }}</li>
+                    {% empty %}
+                        <li>Sem vacinacoes</li>
+                    {% endfor %}
+                    </ul>
+                </td>
+                <td>{{ appointment.notes }}</td>
+                <td>
+                    <a href="{% url 'appointments:confirm_appointment' appointment.id %}">Confirmar</a>
+                    |
+                    <a href="{% url 'appointments:complete_appointment' appointment.id %}">Concluir</a>
+                    |
+                    <a href="{% url 'appointments:cancel_appointment' appointment.id %}">Cancelar</a>
+                </td>
+                <td>
+                    <a href="{% url 'appointments:edit_appointment' appointment.id %}">Editar</a>
+                </td>
+                <td>
+                    <a href="{% url 'appointments:delete_appointment' appointment.id %}">Excluir</a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="11">Nenhuma consulta encontrada.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock body %}
