@@ -26,3 +26,17 @@ def list_appointments(request):
         'appointments': appointments
     }
     return render(request, template_name, context)
+
+
+def edit_appointment(request, id_appointment):
+    template_name = 'appointments/add_appointment.html'
+    context = {}
+    appointment = get_object_or_404(Appointment, id=id_appointment)
+    if request.method == 'POST':
+        form = AppointmentForm(request.POST, instance=appointment)
+        if form.is_valid():
+            form.save()
+            return redirect('appointments:list_appointments')
+    form = AppointmentForm(instance=appointment)
+    context['form'] = form
+    return render(request, template_name, context)
