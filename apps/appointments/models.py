@@ -6,6 +6,11 @@ from veterinarians.models import Veterinarian
 
 class Appointment(models.Model):
     scheduled_at = models.DateTimeField('Data e hora agendada')
+    appointment_type = models.CharField('Tipo', max_length=20, null=True, blank=True, default='Consulta', choices=[
+        ('Consulta', 'Consulta'),
+        ('Vacinacao', 'Vacinacao'),
+        ('Retorno', 'Retorno'),
+    ])
 
     class Meta:
         verbose_name = 'Consulta'
