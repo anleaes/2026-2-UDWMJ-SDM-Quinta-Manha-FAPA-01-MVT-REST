@@ -1,8 +1,11 @@
 from django.db import models
+from animals.models import Animal
+from veterinarians.models import Veterinarian
 
 # Create your models here.
 
 class Appointment(models.Model):
+    scheduled_at = models.DateTimeField('Data e hora agendada')
 
     class Meta:
         verbose_name = 'Consulta'
