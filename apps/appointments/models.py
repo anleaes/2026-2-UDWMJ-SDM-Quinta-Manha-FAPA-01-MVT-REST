@@ -19,6 +19,7 @@ class Appointment(models.Model):
     ])
     notes = models.TextField('Observacoes', null=True, blank=True)
     animal = models.ForeignKey(Animal, on_delete=models.CASCADE)
+    veterinarian = models.ForeignKey(Veterinarian, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Consulta'
