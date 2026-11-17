@@ -17,3 +17,12 @@ def add_prescription(request):
     form = PrescriptionForm()
     context['form'] = form
     return render(request, template_name, context)
+
+
+def list_prescriptions(request):
+    template_name = 'prescriptions/list_prescriptions.html'
+    prescriptions = Prescription.objects.filter()
+    context = {
+        'prescriptions': prescriptions
+    }
+    return render(request, template_name, context)
