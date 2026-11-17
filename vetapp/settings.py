@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'tutors.apps.TutorsConfig',
     'animals.apps.AnimalsConfig',
     'medications.apps.MedicationsConfig',
+    'appointments.apps.AppointmentsConfig',
 ]
 
 MIDDLEWARE = [
