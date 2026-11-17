@@ -27,4 +27,4 @@ class Appointment(models.Model):
         ordering = ['id']
 
     def __str__(self):
-        return f'{self.id}'
+        return f'{self.animal} - {self.scheduled_at:%d/%m/%Y %H:%M}'
