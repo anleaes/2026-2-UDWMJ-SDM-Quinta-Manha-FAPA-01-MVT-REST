@@ -10,4 +10,5 @@ urlpatterns = [
     path('excluir/<int:id_appointment>/', views.delete_appointment, name='delete_appointment'),
     path('confirmar/<int:id_appointment>/', views.confirm_appointment, name='confirm_appointment'),
     path('concluir/<int:id_appointment>/', views.complete_appointment, name='complete_appointment'),
+    path('cancelar/<int:id_appointment>/', views.cancel_appointment, name='cancel_appointment'),
 ]
