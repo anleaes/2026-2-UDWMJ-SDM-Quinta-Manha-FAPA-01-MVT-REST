@@ -40,3 +40,9 @@ def edit_appointment(request, id_appointment):
     form = AppointmentForm(instance=appointment)
     context['form'] = form
     return render(request, template_name, context)
+
+
+def delete_appointment(request, id_appointment):
+    appointment = Appointment.objects.get(id=id_appointment)
+    appointment.delete()
+    return redirect('appointments:list_appointments')
