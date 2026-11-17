@@ -18,6 +18,7 @@ class Appointment(models.Model):
         ('Cancelada', 'Cancelada'),
     ])
     notes = models.TextField('Observacoes', null=True, blank=True)
+    animal = models.ForeignKey(Animal, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Consulta'
