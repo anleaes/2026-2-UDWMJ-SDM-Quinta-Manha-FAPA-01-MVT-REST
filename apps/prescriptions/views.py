@@ -26,3 +26,17 @@ def list_prescriptions(request):
         'prescriptions': prescriptions
     }
     return render(request, template_name, context)
+
+
+def edit_prescription(request, id_prescription):
+    template_name = 'prescriptions/add_prescription.html'
+    context = {}
+    prescription = get_object_or_404(Prescription, id=id_prescription)
+    if request.method == 'POST':
+        form = PrescriptionForm(request.POST, instance=prescription)
+        if form.is_valid():
+            form.save()
+            return redirect('prescriptions:list_prescriptions')
+    form = PrescriptionForm(instance=prescription)
+    context['form'] = form
+    return render(request, template_name, context)
