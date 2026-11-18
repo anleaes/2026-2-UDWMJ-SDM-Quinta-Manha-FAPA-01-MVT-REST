@@ -15,6 +15,7 @@
     <thead>
         <tr>
             <th>ID</th>
+            <th>Atendimento</th>
             <th>Vacina</th>
             <th>Lote</th>
             <th>Aplicada em</th>
@@ -30,6 +31,7 @@
         {% for vaccination in vaccinations %}
             <tr>
                 <td>{{ vaccination.id }}</td>
+                <td>{{ vaccination.appointment }}</td>
                 <td>{{ vaccination.batch.vaccine.name }}</td>
                 <td>{{ vaccination.batch.number }}</td>
                 <td>{{ vaccination.applied_at }}</td>
