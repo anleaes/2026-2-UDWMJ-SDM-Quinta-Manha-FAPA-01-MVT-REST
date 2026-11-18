@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Lista de Certificados - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+    <div class="container">
+        <br />
+        <h5><b>Lista de Certificados</b></h5>
+        <div class="row">
+            <div class="col-md-12">
+                <br />
+                <a href="{% url 'certificates:add_certificate' %}">Novo Certificado</a>
+                <br />
+                <br />
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Número</th>
+                            <th scope="col">Animal</th>
+                            <th scope="col">Vacinação</th>
+                            <th scope="col">Emissão</th>
+                            <th scope="col">Validade</th>
+                            <th scope="col">Arquivo PDF</th>
+                            <th scope="col"></th> 
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for certificate in certificates %}
+                            <tr>
+                                <th scope="row">{{ certificate.id }}</th>
+                                <td>{{ certificate.number }}</td>
+                                <td>{{ certificate.vaccination.appointment.animal.name }}</td>
+                                <td>{{ certificate.vaccination }}</td>
+                                <td>{{ certificate.issue_date }}</td>
+                                <td>{{ certificate.valid_until }}</td>
+                                <td>
+                                    {% if certificate.pdf_file %}
+                                        <a href="{{ certificate.pdf_file.url }}" target="_blank" class="btn btn-info btn-sm">Abrir PDF</a>
+                                    {% else %}
+                                        Sem arquivo
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
