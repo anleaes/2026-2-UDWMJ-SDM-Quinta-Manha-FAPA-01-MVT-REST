@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Consulta - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+
+<br />
+<b>Cadastro de Consulta</b>
+<br />
+<br />
+<form action="" method="POST">
+{% csrf_token %}
+    <label>Animal</label>
+    <br />
+    {{ form.animal }}
+    <br />
+    <br />
+    <label>Veterinario</label>
+    <br />
+    {{ form.veterinarian }}
+    <br />
+    <br />
+    <label>Data e hora agendada</label>
+    <br />
+    {{ form.scheduled_at }}
+    <br />
+    <br />
+    <label>Tipo</label>
+    <br />
+    {{ form.appointment_type }}
+    <br />
+    <br />
+    <label>Status</label>
+    <br />
+    {{ form.status }}
+    <br />
+    <br />
+    <label>Observacoes</label>
+    <br />
+    {{ form.notes }}
+    <br />
+    <br />
+    <button type="submit">Salvar</button>
+</form>
+
+{% endblock body %}

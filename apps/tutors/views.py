@@ -14,8 +14,7 @@ def add_tutor(request):
             f.save()
             form.save_m2m()
             return redirect('tutors:list_tutors')
-    else:
-        form = TutorForm()
+    form = TutorForm()
     context['form'] = form
     return render(request, template_name, context)
 def list_tutors(request):
@@ -34,8 +33,7 @@ def edit_tutor(request, id_tutor):
         if form.is_valid():
             form.save()
             return redirect('tutors:list_tutors')
-    else:
-        form = TutorForm(instance=tutor)
+    form = TutorForm(instance=tutor)
     context['form'] = form
     return render(request, template_name, context)
 def delete_tutor(request, id_tutor):

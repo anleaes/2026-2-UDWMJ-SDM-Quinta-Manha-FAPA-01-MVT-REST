@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Cadastro de Animal - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+<br />
+<b>Cadastro de Animal</b>
+<br />
+<br />
+<form action="" method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+    <label>Tutor</label>
+    <br />
+    {{ form.tutor }}
+    <br />
+    <br />
+    <label>Espécie</label>
+    <br />
+    {{ form.species }}
+    <br />
+    <br />
+    <label>Nome</label>
+    <br />
+    {{ form.name }}
+    <br />
+    <br />
+    <label>Data de Nascimento</label>
+    <br />
+    {{ form.birth_date }}
+    <br />
+    <br />
+    <label>Sexo</label>
+    <br />
+    {{ form.sex }}
+    <br />
+    <br />
+    <label>Peso (kg)</label>
+    <br />
+    {{ form.weight_kg }}
+    <br />
+    <br />
+    <label>Microchip</label>
+    <br />
+    {{ form.microchip }}
+    <br />
+    <br />
+    <label>Foto</label>
+    <br />
+    {{ form.photo }}
+    <br />
+    <br />
+    <button type="submit">Salvar</button>       
+</form>
+{% endblock body %}
