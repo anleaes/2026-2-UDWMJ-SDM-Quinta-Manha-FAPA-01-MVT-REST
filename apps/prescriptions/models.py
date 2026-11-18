@@ -9,7 +9,7 @@ class Prescription(models.Model):
     medication = models.ForeignKey(Medication, on_delete=models.CASCADE, verbose_name='Medicamento')
     dosage = models.CharField('Dosagem', max_length=50)
     frequency = models.CharField('Frequência', max_length=50)
-    duration_days = models.PositiveIntegerField('Duração (dias)')
+    duration_days = models.IntegerField('Duração (dias)')
     instructions = models.TextField('Instruções', null=True, blank=True)
 
     class Meta:
