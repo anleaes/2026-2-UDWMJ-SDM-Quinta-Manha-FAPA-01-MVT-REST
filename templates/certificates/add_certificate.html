@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Certificados - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+    <div class="container">
+        <br />
+        <h5><b>Cadastro de Certificado</b></h5>
+        <div class="row">
+            <div class="col-md-12">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="{{ form.vaccination.id_for_label }}">Vacinação</label>
+                        {{ form.vaccination }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.number.id_for_label }}">Número do Certificado</label>
+                        {{ form.number }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.valid_until.id_for_label }}">Válido até</label>
+                        {{ form.valid_until }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.pdf_file.id_for_label }}">Arquivo PDF</label>
+                        {{ form.pdf_file }}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
