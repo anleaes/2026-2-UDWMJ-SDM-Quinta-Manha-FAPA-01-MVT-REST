@@ -44,6 +44,12 @@
                                         Sem arquivo
                                     {% endif %}
                                 </td>
+                                <td>
+                                    <a href="{% url 'certificates:edit_certificate' certificate.id %}" class="btn btn-primary btn-sm">Editar</a>
+                                </td>
+                                <td>     
+                                    <a href="{% url 'certificates:delete_certificate' certificate.id %}" class="btn btn-danger btn-sm">Excluir</a>
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>
