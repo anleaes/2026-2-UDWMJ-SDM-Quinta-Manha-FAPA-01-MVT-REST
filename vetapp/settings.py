@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'animals.apps.AnimalsConfig',
     'medications.apps.MedicationsConfig',
     'appointments.apps.AppointmentsConfig',
+    'prescriptions.apps.PrescriptionsConfig',
 ]
 
 MIDDLEWARE = [
