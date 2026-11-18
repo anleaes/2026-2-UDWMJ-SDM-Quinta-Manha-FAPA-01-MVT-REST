@@ -38,3 +38,8 @@ def edit_certificate(request, id_certificate):
     form = CertificateForm(instance=certificate)
     context['form'] = form
     return render(request, template_name, context)
+
+def delete_certificate(request, id_certificate):
+    certificate = Certificate.objects.get(id=id_certificate)
+    certificate.delete()
+    return redirect('certificates:list_certificates')
