@@ -29,6 +29,7 @@ urlpatterns = [
     path('especies/', include('species.urls', namespace='species')),
     path('veterinarios/', include('veterinarians.urls', namespace='veterinarians')),
     path('tutores/', include('tutors.urls', namespace='tutors')),
+    path('vacinacoes/', include('vaccinations.urls', namespace='vaccinations')),
     path('animais/', include('animals.urls', namespace='animals')),
     path('medicamentos/', include('medications.urls', namespace='medications')),
     path('agendamentos/', include('appointments.urls', namespace='appointments')),
