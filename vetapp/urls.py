@@ -34,6 +34,7 @@ urlpatterns = [
     path('medicamentos/', include('medications.urls', namespace='medications')),
     path('agendamentos/', include('appointments.urls', namespace='appointments')),
     path('prescricoes/', include('prescriptions.urls', namespace='prescriptions')),
+    path('receitas/', include('recipes.urls', namespace='recipes')),
     path('certificados/', include('certificates.urls', namespace='certificates')),
 ]
 
