@@ -26,3 +26,17 @@ def list_recipes(request):
         'recipes': recipes
     }
     return render(request, template_name, context)
+
+
+def edit_recipe(request, id_recipe):
+    template_name = 'recipes/add_recipe.html'
+    context = {}
+    recipe = get_object_or_404(Recipe, id=id_recipe)
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, request.FILES, instance=recipe)
+        if form.is_valid():
+            form.save()
+            return redirect('recipes:list_recipes')
+    form = RecipeForm(instance=recipe)
+    context['form'] = form
+    return render(request, template_name, context)
