@@ -34,7 +34,7 @@
           <td>{{ recipe.number }}</td>
           <td>{{ recipe.issue_date }}</td>
           <td>{{ recipe.valid_until }}</td>
-          <td>{{ recipe.recipe_type }}</td>
+          <td>{{ recipe.get_recipe_type_display }}</td>
           <td>
             {% if recipe.pdf_file %}
               <a href="{{ recipe.pdf_file.url }}">Abrir PDF</a>
