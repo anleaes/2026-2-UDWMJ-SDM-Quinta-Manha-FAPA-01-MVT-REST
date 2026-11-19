@@ -17,3 +17,12 @@ def add_recipe(request):
     form = RecipeForm()
     context['form'] = form
     return render(request, template_name, context)
+
+
+def list_recipes(request):
+    template_name = 'recipes/list_recipes.html'
+    recipes = Recipe.objects.filter()
+    context = {
+        'recipes': recipes
+    }
+    return render(request, template_name, context)
