@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Lista de Receitas - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+  <br />
+  <b>Lista de Receitas</b>
+  <br />
+  <br />
+  <a href="{% url 'recipes:add_recipe' %}">Adicionar Receita</a>
+  <br />
+  <br />
+  <table border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Prescrição</th>
+        <th>Número</th>
+        <th>Data de emissão</th>
+        <th>Válido até</th>
+        <th>Tipo de receita</th>
+        <th>Arquivo PDF</th>
+        <th>Observações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for recipe in recipes %}
+        <tr>
+          <th>{{ recipe.id }}</th>
+          <td>{{ recipe.prescription }}</td>
+          <td>{{ recipe.number }}</td>
+          <td>{{ recipe.issue_date }}</td>
+          <td>{{ recipe.valid_until }}</td>
+          <td>{{ recipe.recipe_type }}</td>
+          <td>
+            {% if recipe.pdf_file %}
+              <a href="{{ recipe.pdf_file.url }}">Abrir PDF</a>
+            {% else %}
+              Sem arquivo
+            {% endif %}
+          </td>
+          <td>{{ recipe.notes|default_if_none:"" }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="8">Nenhuma receita cadastrada.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock body %}
