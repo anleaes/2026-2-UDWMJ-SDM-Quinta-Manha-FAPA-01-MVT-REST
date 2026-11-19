@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Cadastro de Certificado - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+<br />
+<b>Cadastro de Certificado</b>
+<br />
+<br />
+<form action="" method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+    <label>Vacinação</label>
+    <br />
+    {{ form.vaccination }}
+    <br />
+    <br />
+    <label>Número</label>
+    <br />
+    {{ form.number }}
+    <br />
+    <br />
+    <label>Válido até</label>
+    <br />
+    {{ form.valid_until }}
+    <br />
+    <br />
+    <label>Arquivo PDF</label>
+    <br />
+    {{ form.pdf_file }}
+    <br />
+    <br />
+    <button type="submit">Salvar</button>
+</form>
+{% endblock body %}

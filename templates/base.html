@@ -27,7 +27,7 @@
     <a href="{% url 'vaccinations:list_vaccinations' %}"><button>Vacinacoes</button></a>
     <a href="{% url 'medications:list_medications' %}"><button>Medicamentos</button></a>
     <a href="#"><button onclick="alertarMensagem()">Receitas</button></a>
-    <a href="#"><button onclick="alertarMensagem()">Certificados</button></a>
+    <a href="{% url 'certificates:list_certificates' %}"><button>Certificados</button></a>
     <a href="{% url 'appointments:list_appointments' %}"><button>Agendamentos</button></a>
     <a href="{% url 'prescriptions:list_prescriptions' %}"><button>Prescricoes</button></a>
     <br />
