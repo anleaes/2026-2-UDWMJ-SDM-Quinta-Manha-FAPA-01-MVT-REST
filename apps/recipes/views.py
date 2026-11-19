@@ -40,3 +40,9 @@ def edit_recipe(request, id_recipe):
     form = RecipeForm(instance=recipe)
     context['form'] = form
     return render(request, template_name, context)
+
+
+def delete_recipe(request, id_recipe):
+    recipe = Recipe.objects.get(id=id_recipe)
+    recipe.delete()
+    return redirect('recipes:list_recipes')
