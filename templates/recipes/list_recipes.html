@@ -23,6 +23,7 @@
         <th>Tipo de receita</th>
         <th>Arquivo PDF</th>
         <th>Observações</th>
+        <th>Ações</th>
       </tr>
     </thead>
     <tbody>
@@ -42,10 +43,14 @@
             {% endif %}
           </td>
           <td>{{ recipe.notes|default_if_none:"" }}</td>
+          <td>
+            <a href="{% url 'recipes:edit_recipe' recipe.id %}">Editar</a>
+            <a href="{% url 'recipes:delete_recipe' recipe.id %}">Excluir</a>
+          </td>
         </tr>
       {% empty %}
         <tr>
-          <td colspan="8">Nenhuma receita cadastrada.</td>
+          <td colspan="9">Nenhuma receita cadastrada.</td>
         </tr>
       {% endfor %}
     </tbody>
