@@ -18,4 +18,4 @@ class Batch(models.Model):
         ordering = ['id']
 
     def __str__(self):
-        return f'{self.number}'
+        return f'{self.vaccine.name} - Lote {self.number}'
