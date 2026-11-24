@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import VaccinationForm
 from .models import Vaccination
+from rest_framework import viewsets
+from .serializer import VaccinationSerializer
 
 # Create your views here.
 
@@ -46,3 +48,8 @@ def delete_vaccination(request, id_vaccination):
     vaccination = Vaccination.objects.get(id=id_vaccination)
     vaccination.delete()
     return redirect('vaccinations:list_vaccinations')
+
+
+class VaccinationViewSet(viewsets.ModelViewSet):
+    queryset = Vaccination.objects.all()
+    serializer_class = VaccinationSerializer
