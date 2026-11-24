@@ -3,6 +3,7 @@ from .forms import VaccinationForm
 from .models import Vaccination
 from rest_framework import viewsets
 from .serializer import VaccinationSerializer
+from django.utils import timezone
 
 # Create your views here.
 
@@ -13,9 +14,17 @@ def add_vaccination(request):
         form = VaccinationForm(request.POST)
         if form.is_valid():
             f = form.save(commit=False)
-            f.save()
-            form.save_m2m()
-            return redirect('vaccinations:list_vaccinations')
+            if f.batch.is_expired():
+                form.add_error('batch', 'Este lote está vencido.')
+            elif not f.batch.decrease_stock():
+                form.add_error('batch', 'Este lote está sem estoque.')
+            else:
+                f.applied_at = timezone.now()
+                f.save()
+                form.save_m2m()
+                return redirect('vaccinations:list_vaccinations')
+        context['form'] = form
+        return render(request, template_name, context)
     form = VaccinationForm()
     context['form'] = form
     return render(request, template_name, context)
