@@ -26,15 +26,16 @@ class Vaccine(models.Model):
     def next_dose(self, animal):
         from vaccinations.models import Vaccination
 
-        history = Vaccination.objects.filter(
+        vaccinations = Vaccination.objects.filter(
             batch__vaccine=self, appointment__animal=animal
-        ).aggregate(doses=models.Count('pk'), last_applied=models.Max('applied_at'))
+        ).order_by('applied_at')
 
-        if history['doses'] == 0:
+        if vaccinations.count() == 0:
             return timezone.localdate()
-        if history['doses'] >= self.required_doses:
+        if vaccinations.count() >= self.required_doses:
             return None
-        return timezone.localdate(history['last_applied']) + timedelta(days=self.interval_days)
+        last = vaccinations.last()
+        return timezone.localdate(last.applied_at) + timedelta(days=self.interval_days)
 
     def __str__(self):
         return f'{self.name}'
