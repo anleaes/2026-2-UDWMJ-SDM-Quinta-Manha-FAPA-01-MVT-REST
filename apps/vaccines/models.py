@@ -1,4 +1,7 @@
+from datetime import timedelta
+
 from django.db import models
+from django.utils import timezone
 
 from manufacturers.models import Manufacturer
 
@@ -19,6 +22,20 @@ class Vaccine(models.Model):
         verbose_name = 'Vacina'
         verbose_name_plural = 'Vacinas'
         ordering = ['id']
+
+    def next_dose(self, animal):
+        from vaccinations.models import Vaccination
+
+        vaccinations = Vaccination.objects.filter(
+            batch__vaccine=self, appointment__animal=animal
+        ).order_by('applied_at')
+
+        if vaccinations.count() == 0:
+            return timezone.localdate()
+        if vaccinations.count() >= self.required_doses:
+            return None
+        last = vaccinations.last()
+        return timezone.localdate(last.applied_at) + timedelta(days=self.interval_days)
 
     def __str__(self):
         return f'{self.name}'
