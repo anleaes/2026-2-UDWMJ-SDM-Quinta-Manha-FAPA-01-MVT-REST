@@ -22,14 +22,11 @@ class Batch(models.Model):
         return self.expiration_date < timezone.localdate()
 
     def decrease_stock(self):
-        updated = Batch.objects.filter(pk=self.pk, quantity__gt=0).update(
-            quantity=models.F('quantity') - 1
-        )
-        if updated:
-            self.refresh_from_db(fields=['quantity'])
-        return bool(updated)
-
-    decrease_stock.alters_data = True
+        if self.quantity > 0:
+            self.quantity = self.quantity - 1
+            self.save()
+            return True
+        return False
 
     def __str__(self):
         return f'{self.vaccine.name} - Lote {self.number}'
