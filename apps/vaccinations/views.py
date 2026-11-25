@@ -6,6 +6,8 @@ from .serializer import VaccinationSerializer
 from django.utils import timezone
 from datetime import date, timedelta
 from certificates.models import Certificate
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 
@@ -75,3 +77,5 @@ def issue_certificate(request, id_vaccination):
 class VaccinationViewSet(viewsets.ModelViewSet):
     queryset = Vaccination.objects.all()
     serializer_class = VaccinationSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
