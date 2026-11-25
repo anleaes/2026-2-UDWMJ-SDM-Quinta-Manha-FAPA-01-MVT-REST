@@ -524,10 +524,15 @@ form button {
 
 /* ---------- 8. Tela de login ---------- */
 
+/* ocupa a altura toda da tela e coloca o cartão no meio, na vertical */
 .login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
     max-width: 440px;
     margin: 0 auto;
-    padding: 72px 16px;
+    padding: 32px 16px;
 }
 
 .login .marca {
