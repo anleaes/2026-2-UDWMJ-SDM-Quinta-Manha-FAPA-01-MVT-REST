@@ -6,7 +6,31 @@
 
 {% block body %}
 
-<!-- Codigo html especifico desse arquivo -->
+<p class="inicio_data">{% now "l, j \d\e F \d\e Y" %}</p>
+<h1 class="inicio_titulo">Tarefas principais</h1>
+<p class="inicio_texto">As tarefas mais comuns do atendimento. Os demais cadastros estão no menu acima.</p>
+
+<div class="atalhos">
+    <a class="atalho" href="{% url 'appointments:add_appointment' %}">
+        <small>Atendimento</small>
+        <strong>Agendar consulta</strong>
+        <span>Marcar um atendimento para um animal</span>
+    </a>
+    <a class="atalho" href="{% url 'vaccinations:add_vaccination' %}">
+        <small>Vacinação</small>
+        <strong>Aplicar vacina</strong>
+        <span>Registrar uma dose aplicada</span>
+    </a>
+    <a class="atalho" href="{% url 'prescriptions:add_prescription' %}">
+        <small>Atendimento</small>
+        <strong>Prescrever</strong>
+        <span>Receitar um medicamento após a consulta</span>
+    </a>
+    <a class="atalho" href="{% url 'animals:add_animal' %}">
+        <small>Pacientes</small>
+        <strong>Cadastrar animal</strong>
+        <span>Novo paciente do ambulatório</span>
+    </a>
+</div>
 
 {% endblock body %}
-
