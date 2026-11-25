@@ -12,5 +12,6 @@ urlpatterns = [
     path('adicionar/', views.add_vaccination, name='add_vaccination'),
     path('editar/<int:id_vaccination>/', views.edit_vaccination, name='edit_vaccination'),
     path('excluir/<int:id_vaccination>/', views.delete_vaccination, name='delete_vaccination'),
+    path('emitir-certificado/<int:id_vaccination>/', views.issue_certificate, name='issue_certificate'),
     path('', include(router.urls)),
 ]
