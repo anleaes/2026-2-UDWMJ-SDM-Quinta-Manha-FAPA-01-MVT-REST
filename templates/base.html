@@ -7,34 +7,61 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&family=Atkinson+Hyperlegible+Mono:wght@400;700&display=swap">
     <link rel="stylesheet" href="{% static 'css/arquivo_com_estilos.css' %}">
-    <title>{% block title %}VetApp - Clinica Veterinaria{% endblock title %}</title>
+    <title>{% block title %}VetApp - Ambulatório Veterinário{% endblock title %}</title>
 </head>
 
 <body class="core_body">
 
-    <a href="{% url 'core:home' %}"><img src="{% static 'img/menu.png' %}" width="200" height="60" /></a>
-    <br />
+    <header class="topo">
+        <div class="topo_conteudo">
+            <a class="marca" href="{% url 'core:home' %}">
+                VetApp
+                <span>Ambulatório Veterinário</span>
+            </a>
 
-    <a href="{% url 'persons:list_persons' %}"><button onclick="mudarCor()">Pessoas</button></a>
-    <a href="{% url 'manufacturers:list_manufacturers' %}"><button>Fabricantes</button></a>
-    <a href="{% url 'tutors:list_tutors' %}"><button>Tutores</button></a>
-    <a href="{% url 'vaccines:list_vaccines' %}"><button>Vacinas</button></a>
-    <a href="{% url 'veterinarians:list_veterinarians' %}"><button>Veterinarios</button></a>
-    <a href="{% url 'species:list_species' %}"><button>Especies</button></a>
-    <a href="{% url 'animals:list_animals' %}"><button>Animais</button></a>
-    <a href="{% url 'batches:list_batches' %}"><button>Lotes</button></a>
-    <a href="{% url 'vaccinations:list_vaccinations' %}"><button>Vacinacoes</button></a>
-    <a href="{% url 'medications:list_medications' %}"><button>Medicamentos</button></a>
-    <a href="{% url 'recipes:list_recipes' %}"><button>Receitas</button></a>
-    <a href="{% url 'certificates:list_certificates' %}"><button>Certificados</button></a>
-    <a href="{% url 'appointments:list_appointments' %}"><button>Agendamentos</button></a>
-    <a href="{% url 'prescriptions:list_prescriptions' %}"><button>Prescricoes</button></a>
-    <br />
+            <nav class="menu">
+                <div class="menu_grupo">
+                    <span>Atendimento</span>
+                    <a href="{% url 'appointments:list_appointments' %}">Agendamentos</a>
+                    <a href="{% url 'prescriptions:list_prescriptions' %}">Prescrições</a>
+                    <a href="{% url 'recipes:list_recipes' %}">Receitas</a>
+                </div>
+                <div class="menu_grupo">
+                    <span>Vacinação</span>
+                    <a href="{% url 'vaccinations:list_vaccinations' %}">Vacinações</a>
+                    <a href="{% url 'certificates:list_certificates' %}">Certificados</a>
+                </div>
+                <div class="menu_grupo">
+                    <span>Pacientes</span>
+                    <a href="{% url 'animals:list_animals' %}">Animais</a>
+                    <a href="{% url 'species:list_species' %}">Espécies</a>
+                </div>
+                <div class="menu_grupo">
+                    <span>Pessoas</span>
+                    <a href="{% url 'tutors:list_tutors' %}">Tutores</a>
+                    <a href="{% url 'veterinarians:list_veterinarians' %}">Veterinários</a>
+                    <a href="{% url 'persons:list_persons' %}">Pessoas</a>
+                </div>
+                <div class="menu_grupo">
+                    <span>Estoque</span>
+                    <a href="{% url 'medications:list_medications' %}">Medicamentos</a>
+                    <a href="{% url 'vaccines:list_vaccines' %}">Vacinas</a>
+                    <a href="{% url 'batches:list_batches' %}">Lotes</a>
+                    <a href="{% url 'manufacturers:list_manufacturers' %}">Fabricantes</a>
+                </div>
+            </nav>
+        </div>
+    </header>
 
-    {% block body %}
+    <main class="conteudo">
+        {% block body %}
 
-    {% endblock body %}
+        {% endblock body %}
+    </main>
 
     <script src="{% static 'js/arquivo_com_javascript.js' %}"></script>
 </body>
