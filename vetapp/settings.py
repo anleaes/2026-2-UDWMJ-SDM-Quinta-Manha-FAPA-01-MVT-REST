@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'prescriptions.apps.PrescriptionsConfig',
     'recipes.apps.RecipesConfig',
     'certificates.apps.CertificatesConfig',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
