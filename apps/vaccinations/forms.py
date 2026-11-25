@@ -5,5 +5,5 @@ class VaccinationForm(forms.ModelForm):
 
     class Meta:
         model = Vaccination
-        exclude = ()
+        exclude = ('applied_at',)
         

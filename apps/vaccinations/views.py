@@ -1,6 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import VaccinationForm
 from .models import Vaccination
+from rest_framework import viewsets
+from .serializer import VaccinationSerializer
+from django.utils import timezone
+from datetime import date, timedelta
+from certificates.models import Certificate
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 
@@ -11,9 +18,17 @@ def add_vaccination(request):
         form = VaccinationForm(request.POST)
         if form.is_valid():
             f = form.save(commit=False)
-            f.save()
-            form.save_m2m()
-            return redirect('vaccinations:list_vaccinations')
+            if f.batch.is_expired():
+                form.add_error('batch', 'Este lote está vencido.')
+            elif not f.batch.decrease_stock():
+                form.add_error('batch', 'Este lote está sem estoque.')
+            else:
+                f.applied_at = timezone.now()
+                f.save()
+                form.save_m2m()
+                return redirect('vaccinations:list_vaccinations')
+        context['form'] = form
+        return render(request, template_name, context)
     form = VaccinationForm()
     context['form'] = form
     return render(request, template_name, context)
@@ -46,3 +61,21 @@ def delete_vaccination(request, id_vaccination):
     vaccination = Vaccination.objects.get(id=id_vaccination)
     vaccination.delete()
     return redirect('vaccinations:list_vaccinations')
+
+
+def issue_certificate(request, id_vaccination):
+    vaccination = get_object_or_404(Vaccination, id=id_vaccination)
+    if not hasattr(vaccination, 'certificate'):
+        Certificate.objects.create(
+            vaccination=vaccination,
+            number=f'CERT-{vaccination.id:06d}',
+            valid_until=date.today() + timedelta(days=vaccination.batch.vaccine.interval_days),
+        )
+    return redirect('vaccinations:list_vaccinations')
+
+
+class VaccinationViewSet(viewsets.ModelViewSet):
+    queryset = Vaccination.objects.all()
+    serializer_class = VaccinationSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
