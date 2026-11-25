@@ -23,6 +23,7 @@
             <th>Local</th>
             <th>Peso (kg)</th>
             <th>Observações</th>
+            <th>Numero Cert.</th>
             <th></th>
             <th></th>
         </tr>
@@ -39,6 +40,13 @@
                 <td>{{ vaccination.application_site }}</td>
                 <td>{{ vaccination.weight_kg }}</td>
                 <td>{{ vaccination.notes }}</td>
+                <td>
+                    {% if vaccination.certificate %}
+                    {{ vaccination.certificate.number }}
+                    {% else %}
+                    <a href="{% url 'vaccinations:issue_certificate' vaccination.id %}">Emitir certificado</a>
+                    {% endif %}
+                </td>
                 <td>
                     <a href="{% url 'vaccinations:edit_vaccination' vaccination.id %}">Editar</a>
                 </td>
