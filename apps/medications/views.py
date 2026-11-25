@@ -1,9 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import MedicationForm
 from .models import Medication
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+@login_required(login_url='/contas/login/')
 def add_medication(request):
     template_name = 'medications/add_medication.html'
     context = {}
@@ -19,6 +21,7 @@ def add_medication(request):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/contas/login/')
 def list_medications(request):
     template_name = 'medications/list_medications.html'
     medications = Medication.objects.filter()
@@ -28,6 +31,7 @@ def list_medications(request):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/contas/login/')
 def edit_medication(request, id_medication):
     template_name = 'medications/add_medication.html'
     context = {}
@@ -42,6 +46,7 @@ def edit_medication(request, id_medication):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/contas/login/')
 def delete_medication(request, id_medication):
     medication = Medication.objects.get(id=id_medication)
     medication.delete()
