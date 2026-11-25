@@ -65,7 +65,45 @@ html {
     padding: 20px 32px 16px;
 }
 
+/* primeira linha do topo: marca à esquerda, usuário logado à direita */
+.topo_linha {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 24px;
+}
+
+.usuario {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 16px;
+    color: var(--grafite-suave);
+    font-size: 14px;
+}
+
+.usuario b {
+    color: var(--grafite);
+}
+
+.usuario a {
+    color: var(--azul);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.usuario a:hover {
+    text-decoration: underline;
+}
+
+/* "Sair" em vermelho, como as outras ações de saída do sistema */
+.usuario a[href*="/sair/"] {
+    color: var(--vermelho);
+}
+
 .marca {
+    margin: 0;
     color: var(--azul);
     font-size: 26px;
     font-weight: 700;
@@ -185,7 +223,8 @@ html {
 }
 
 .conteudo > a[href*="/adicionar/"],
-.conteudo > a[href*="/listar/"] {
+.conteudo > a[href*="/listar/"],
+.conteudo > a[href*="/contas/login/"] {
     grid-column: 2;
     grid-row: 1;
     margin-bottom: 28px;
@@ -218,8 +257,9 @@ button:hover,
     background-color: var(--azul-escuro);
 }
 
-/* link "Voltar para a lista" */
-.conteudo > a[href*="/listar/"] {
+/* links "Voltar para a lista" e "Voltar para o login" */
+.conteudo > a[href*="/listar/"],
+.conteudo > a[href*="/contas/login/"] {
     color: var(--grafite-suave);
     font-family: var(--fonte-etiqueta);
     font-size: 13px;
@@ -227,7 +267,8 @@ button:hover,
     text-transform: uppercase;
 }
 
-.conteudo > a[href*="/listar/"]::before {
+.conteudo > a[href*="/listar/"]::before,
+.conteudo > a[href*="/contas/login/"]::before {
     content: "← ";
     font-family: Arial, sans-serif;
 }
@@ -481,7 +522,39 @@ form button {
 }
 
 
-/* ---------- 8. Página inicial ---------- */
+/* ---------- 8. Tela de login ---------- */
+
+.login {
+    max-width: 440px;
+    margin: 0 auto;
+    padding: 72px 16px;
+}
+
+.login .marca {
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.login form b {
+    display: block;
+    margin-bottom: 24px;
+    font-size: 26px;
+}
+
+.login form button {
+    width: 100%;
+}
+
+.login form a {
+    display: block;
+    margin-top: 18px;
+    color: var(--azul);
+    font-weight: 700;
+    text-align: center;
+}
+
+
+/* ---------- 8.1 Página inicial ---------- */
 
 /* data do dia, como o carimbo de data da carteirinha */
 .inicio_data {

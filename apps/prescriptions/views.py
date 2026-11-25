@@ -3,9 +3,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import PrescriptionForm
 from .models import Prescription
 from recipes.models import Recipe
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+@login_required(login_url='/contas/login/')
 def add_prescription(request):
     template_name = 'prescriptions/add_prescription.html'
     context = {}
@@ -21,6 +23,7 @@ def add_prescription(request):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/contas/login/')
 def list_prescriptions(request):
     template_name = 'prescriptions/list_prescriptions.html'
     prescriptions = Prescription.objects.filter()
@@ -30,6 +33,7 @@ def list_prescriptions(request):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/contas/login/')
 def edit_prescription(request, id_prescription):
     template_name = 'prescriptions/add_prescription.html'
     context = {}
@@ -44,12 +48,14 @@ def edit_prescription(request, id_prescription):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/contas/login/')
 def delete_prescription(request, id_prescription):
     prescription = Prescription.objects.get(id=id_prescription)
     prescription.delete()
     return redirect('prescriptions:list_prescriptions')
 
 
+@login_required(login_url='/contas/login/')
 def issue_recipe(request, id_prescription):
     prescription = get_object_or_404(Prescription, id=id_prescription)
     if not hasattr(prescription, 'recipe'):
