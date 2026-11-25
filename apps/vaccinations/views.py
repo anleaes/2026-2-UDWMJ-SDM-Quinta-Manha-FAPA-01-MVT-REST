@@ -4,6 +4,8 @@ from .models import Vaccination
 from rest_framework import viewsets
 from .serializer import VaccinationSerializer
 from django.utils import timezone
+from datetime import date, timedelta
+from certificates.models import Certificate
 
 # Create your views here.
 
@@ -56,6 +58,17 @@ def edit_vaccination(request, id_vaccination):
 def delete_vaccination(request, id_vaccination):
     vaccination = Vaccination.objects.get(id=id_vaccination)
     vaccination.delete()
+    return redirect('vaccinations:list_vaccinations')
+
+
+def issue_certificate(request, id_vaccination):
+    vaccination = get_object_or_404(Vaccination, id=id_vaccination)
+    if not hasattr(vaccination, 'certificate'):
+        Certificate.objects.create(
+            vaccination=vaccination,
+            number=f'CERT-{vaccination.id:06d}',
+            valid_until=date.today() + timedelta(days=vaccination.batch.vaccine.interval_days),
+        )
     return redirect('vaccinations:list_vaccinations')
 
 
