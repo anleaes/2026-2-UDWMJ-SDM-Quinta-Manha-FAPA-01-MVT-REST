@@ -18,11 +18,23 @@
 
     <header class="topo">
         <div class="topo_conteudo">
-            <a class="marca" href="{% url 'core:home' %}">
-                VetApp
-                <span>Ambulatório Veterinário</span>
-            </a>
+            <div class="topo_linha">
+                <a class="marca" href="{% url 'core:home' %}">
+                    VetApp
+                    <span>Ambulatório Veterinário</span>
+                </a>
 
+                {% if user.is_authenticated %}
+                <div class="usuario">
+                    <span>Você está logado como <b>{{ user.get_full_name|default:user.username }}</b></span>
+                    <a href="{% url 'accounts:user_change_information' user.username %}">Conta</a>
+                    <a href="{% url 'accounts:user_change_password' %}">Trocar senha</a>
+                    <a href="{% url 'accounts:user_logout' %}">Sair</a>
+                </div>
+                {% endif %}
+            </div>
+
+            {% if user.is_authenticated %}
             <nav class="menu">
                 <div class="menu_grupo">
                     <span>Atendimento</span>
@@ -54,6 +66,7 @@
                     <a href="{% url 'manufacturers:list_manufacturers' %}">Fabricantes</a>
                 </div>
             </nav>
+            {% endif %}
         </div>
     </header>
 
