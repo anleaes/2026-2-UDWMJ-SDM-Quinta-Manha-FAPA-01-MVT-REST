@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Cadastro de Receita - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+  <br />
+  <b>Cadastro de Receita</b>
+  <br />
+  <br />
+  <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label>Prescrição:</label>
+    <br />
+    {{ form.prescription }}
+    <br />
+    <br />
+    <label>Número:</label>
+    <br />
+    {{ form.number }}
+    <br />
+    <br />
+    <label>Válido até (DD/MM/AAAA):</label>
+    <br />
+    {{ form.valid_until }}
+    <br />
+    <br />
+    <label>Tipo de receita:</label>
+    <br />
+    {{ form.recipe_type }}
+    <br />
+    <br />
+    <label>Arquivo PDF:</label>
+    <br />
+    {{ form.pdf_file }}
+    <br />
+    <br />
+    <label>Observações:</label>
+    <br />
+    {{ form.notes }}
+    <br />
+    <br />
+    <button type="submit">Salvar</button>
+  </form>
+  <br />
+  <a href="{% url 'recipes:list_recipes' %}">Voltar para a lista</a>
+{% endblock body %}

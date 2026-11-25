@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Cadastro de Prescrição - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+
+<br />
+<b>Cadastro de Prescrição</b>
+<br />
+<br />
+<form action="" method="POST">
+    {% csrf_token %}
+    <label>Atendimento:</label>
+    <br />
+    {{ form.appointment }}
+    <br />
+    <br />
+    <label>Medicamento:</label>
+    <br />
+    {{ form.medication }}
+    <br />
+    <br />
+    <label>Dosagem:</label>
+    <br />
+    {{ form.dosage }}
+    <br />
+    <br />
+    <label>Frequência:</label>
+    <br />
+    {{ form.frequency }}
+    <br />
+    <br />
+    <label>Duração (dias):</label>
+    <br />
+    {{ form.duration_days }}
+    <br />
+    <br />
+    <label>Instruções:</label>
+    <br />
+    {{ form.instructions }}
+    <br />
+    <br />
+    <button type="submit">Salvar</button>
+</form>
+
+{% endblock body %}

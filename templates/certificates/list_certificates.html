@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Lista de Certificados - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+<br />
+    <a href="{% url 'certificates:add_certificate' %}">Cadastro de novo certificado</a>
+<br />
+<br />
+<b>Lista de Certificados</b>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Número</th>
+            <th>Animal</th>
+            <th>Vacinação</th>
+            <th>Data de Emissão</th>
+            <th>Válido até</th>
+            <th>Arquivo PDF</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for certificate in certificates %}
+        <tr>
+            <td>{{ certificate.id }}</td>
+            <td>{{ certificate.number }}</td>
+            <td>{{ certificate.vaccination.appointment.animal.name }}</td>
+            <td>{{ certificate.vaccination }}</td>
+            <td>{{ certificate.issue_date|date:"d/m/Y" }}</td>
+            <td>{{ certificate.valid_until|date:"d/m/Y" }}</td>
+            <td>
+                {% if certificate.pdf_file %}
+                    <a href="{{ certificate.pdf_file.url }}" target="_blank">Abrir PDF</a>
+                {% else %}
+                    Sem arquivo
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'certificates:edit_certificate' certificate.id %}">Editar</a>
+            </td>
+            <td>
+                <a href="{% url 'certificates:delete_certificate' certificate.id %}">Excluir</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="9">Nenhum certificado cadastrado.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock body %}
