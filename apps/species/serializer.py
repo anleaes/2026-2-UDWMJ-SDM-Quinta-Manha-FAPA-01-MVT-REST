@@ -4,3 +4,4 @@ from .models import Species
 
 class SpeciesSerializer(serializers.ModelSerializer):
 
+    class Meta:
