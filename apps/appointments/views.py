@@ -1,6 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import AppointmentForm
 from .models import Appointment
+from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from .serializer import AppointmentSerializer
 
 # Create your views here.
 
@@ -70,3 +74,10 @@ def cancel_appointment(request, id_appointment):
         appointment.status = 'Cancelada'
         appointment.save()
     return redirect('appointments:list_appointments')
+
+
+class AppointmentViewSet(viewsets.ModelViewSet):
+    queryset = Appointment.objects.all()
+    serializer_class = AppointmentSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
