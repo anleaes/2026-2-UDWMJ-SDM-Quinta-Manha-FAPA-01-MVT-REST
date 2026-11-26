@@ -1,7 +1,10 @@
-from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import PersonForm
 from .models import Person
+from .serializer import PersonSerializer
+from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 
@@ -37,3 +40,10 @@ def delete_person(request, id_person):
     person = get_object_or_404(Person, id=id_person)
     person.delete()
     return redirect('persons:list_persons')
+
+
+class PersonViewSet(viewsets.ModelViewSet):
+    queryset = Person.objects.all()
+    serializer_class = PersonSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
