@@ -1,15 +1,18 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import AnimalForm
 from .models import Animal
 
 # Create your views here.
 
+@login_required(login_url='/contas/login/')
 def list_animals(request):
     template_name = 'animals/list_animals.html'
     animals = Animal.objects.all()
     context = {'animals': animals}
     return render(request, template_name, context)
 
+@login_required(login_url='/contas/login/')
 def add_animal(request):
     template_name = 'animals/add_animal.html'
     context = {}
@@ -24,6 +27,7 @@ def add_animal(request):
     context['form'] = form
     return render(request, template_name, context)
 
+@login_required(login_url='/contas/login/')
 def edit_animal(request, id_animal):
     template_name = 'animals/add_animal.html'
     context = {}
@@ -39,6 +43,7 @@ def edit_animal(request, id_animal):
     context['form'] = form
     return render(request, template_name, context)
 
+@login_required(login_url='/contas/login/')
 def delete_animal(request, id_animal):
     animal = Animal.objects.get(id=id_animal)
     animal.delete()
