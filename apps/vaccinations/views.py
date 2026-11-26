@@ -8,9 +8,11 @@ from datetime import date, timedelta
 from certificates.models import Certificate
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+@login_required(login_url='/contas/login/')
 def add_vaccination(request):
     template_name = 'vaccinations/add_vaccination.html'
     context = {}
@@ -34,6 +36,7 @@ def add_vaccination(request):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/contas/login/')
 def list_vaccinations(request):
     template_name = 'vaccinations/list_vaccinations.html'
     vaccinations = Vaccination.objects.filter()
@@ -43,6 +46,7 @@ def list_vaccinations(request):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/contas/login/')
 def edit_vaccination(request, id_vaccination):
     template_name = 'vaccinations/add_vaccination.html'
     context = {}
@@ -57,12 +61,14 @@ def edit_vaccination(request, id_vaccination):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/contas/login/')
 def delete_vaccination(request, id_vaccination):
     vaccination = Vaccination.objects.get(id=id_vaccination)
     vaccination.delete()
     return redirect('vaccinations:list_vaccinations')
 
 
+@login_required(login_url='/contas/login/')
 def issue_certificate(request, id_vaccination):
     vaccination = get_object_or_404(Vaccination, id=id_vaccination)
     if not hasattr(vaccination, 'certificate'):
