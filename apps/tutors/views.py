@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import TutorForm
 from .models import Tutor
 
 # Create your views here.
 
+@login_required(login_url='/contas/login/')
 def add_tutor(request):
     template_name = 'tutors/add_tutor.html'
     context = {}
@@ -17,6 +19,8 @@ def add_tutor(request):
     form = TutorForm()
     context['form'] = form
     return render(request, template_name, context)
+
+@login_required(login_url='/contas/login/')
 def list_tutors(request):
     template_name = 'tutors/list_tutors.html'
     tutors = Tutor.objects.filter()
@@ -24,6 +28,8 @@ def list_tutors(request):
         'tutors': tutors
     }
     return render(request, template_name, context)
+
+@login_required(login_url='/contas/login/')
 def edit_tutor(request, id_tutor):
     template_name = 'tutors/add_tutor.html'
     context = {}
@@ -36,6 +42,8 @@ def edit_tutor(request, id_tutor):
     form = TutorForm(instance=tutor)
     context['form'] = form
     return render(request, template_name, context)
+
+@login_required(login_url='/contas/login/')
 def delete_tutor(request, id_tutor):
     tutor = Tutor.objects.get(id=id_tutor)
     tutor.delete()

@@ -1,15 +1,18 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import CertificateForm
 from .models import Certificate
 
 # Create your views here.
 
+@login_required(login_url='/contas/login/')
 def list_certificates(request):
     template_name = 'certificates/list_certificates.html'
     certificates = Certificate.objects.all()
     context = {'certificates': certificates}
     return render(request, template_name, context)
 
+@login_required(login_url='/contas/login/')
 def add_certificate(request):
     template_name = 'certificates/add_certificate.html'
     context = {}
@@ -24,6 +27,7 @@ def add_certificate(request):
     context['form'] = form
     return render(request, template_name, context)
 
+@login_required(login_url='/contas/login/')
 def edit_certificate(request, id_certificate):
     template_name = 'certificates/add_certificate.html'
     context = {}
@@ -39,6 +43,7 @@ def edit_certificate(request, id_certificate):
     context['form'] = form
     return render(request, template_name, context)
 
+@login_required(login_url='/contas/login/')
 def delete_certificate(request, id_certificate):
     certificate = Certificate.objects.get(id=id_certificate)
     certificate.delete()
