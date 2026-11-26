@@ -1,6 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import SpeciesForm
 from .models import Species
+from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from .serializer import SpeciesSerializer
 # Create your views here.
 
 def add_species(request):
@@ -35,3 +39,10 @@ def delete_species(request, id_species):
     species = get_object_or_404(Species, id=id_species)
     species.delete()
     return redirect('species:list_species')
+
+
+class SpeciesViewSet(viewsets.ModelViewSet):
+    queryset = Species.objects.all()
+    serializer_class = SpeciesSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
