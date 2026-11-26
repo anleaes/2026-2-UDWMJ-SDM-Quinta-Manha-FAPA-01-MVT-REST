@@ -5,8 +5,10 @@ from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from .serializer import SpeciesSerializer
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+@login_required(login_url='/contas/login/')
 def add_species(request):
     template_name = 'species/add_species.html'
     if request.method == 'POST':
@@ -18,11 +20,15 @@ def add_species(request):
         form = SpeciesForm()
     return render(request, template_name, {'form': form})
 
+
+@login_required(login_url='/contas/login/')
 def list_species(request):
     template_name = 'species/list_species.html'
     species = Species.objects.filter()
     return render(request, template_name, {'species': species})
 
+
+@login_required(login_url='/contas/login/')
 def edit_species(request, id_species):
     template_name = 'species/add_species.html'
     species = get_object_or_404(Species, id=id_species)
@@ -35,6 +41,8 @@ def edit_species(request, id_species):
         form = SpeciesForm(instance=species)
     return render(request, template_name, {'form': form})
 
+
+@login_required(login_url='/contas/login/')
 def delete_species(request, id_species):
     species = get_object_or_404(Species, id=id_species)
     species.delete()
