@@ -3,3 +3,5 @@ from .models import Appointment
 
 
 class AppointmentSerializer(serializers.ModelSerializer):
+
+    class Meta:
