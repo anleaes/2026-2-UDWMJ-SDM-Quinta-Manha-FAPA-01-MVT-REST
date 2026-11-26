@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import BatchForm
 from .models import Batch
 
 
+@login_required(login_url='/contas/login/')
 def add_batch(request):
     template_name = 'batches/add_batch.html'
     context = {}
@@ -19,6 +21,7 @@ def add_batch(request):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/contas/login/')
 def list_batches(request):
     template_name = 'batches/list_batches.html'
     batches = Batch.objects.filter()
@@ -28,6 +31,7 @@ def list_batches(request):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/contas/login/')
 def edit_batch(request, id_batch):
     template_name = 'batches/add_batch.html'
     context = {}
@@ -42,6 +46,7 @@ def edit_batch(request, id_batch):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/contas/login/')
 def delete_batch(request, id_batch):
     batch = Batch.objects.get(id=id_batch)
     batch.delete()

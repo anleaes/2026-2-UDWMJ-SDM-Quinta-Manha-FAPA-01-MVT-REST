@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import ManufacturerForm
@@ -7,6 +8,7 @@ from .models import Manufacturer
 # Create your views here.
 
 
+@login_required(login_url='/contas/login/')
 def add_manufacturer(request):
     template_name = 'manufacturers/add_manufacturer.html'
     context = {}
@@ -23,6 +25,7 @@ def add_manufacturer(request):
     context['form'] = form
     return render(request, template_name, context)
 
+@login_required(login_url='/contas/login/')
 def list_manufacturers(request):
     template_name = 'manufacturers/list_manufacturers.html'
     manufacturers = Manufacturer.objects.filter()
@@ -32,6 +35,7 @@ def list_manufacturers(request):
     }
     return render(request, template_name, context)
 
+@login_required(login_url='/contas/login/')
 def edit_manufacturer(request, id_manufacturer):
     template_name = 'manufacturers/add_manufacturer.html'
     context = {}
@@ -46,6 +50,7 @@ def edit_manufacturer(request, id_manufacturer):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/contas/login/')
 def delete_manufacturer(request, id_manufacturer):
     manufacturer = Manufacturer.objects.get(id=id_manufacturer)
     manufacturer.delete()

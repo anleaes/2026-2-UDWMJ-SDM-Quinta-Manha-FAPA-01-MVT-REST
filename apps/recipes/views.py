@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import RecipeForm
 from .models import Recipe
 
 
+@login_required(login_url='/contas/login/')
 def add_recipe(request):
     template_name = 'recipes/add_recipe.html'
     context = {}
@@ -19,6 +21,7 @@ def add_recipe(request):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/contas/login/')
 def list_recipes(request):
     template_name = 'recipes/list_recipes.html'
     recipes = Recipe.objects.filter()
@@ -28,6 +31,7 @@ def list_recipes(request):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/contas/login/')
 def edit_recipe(request, id_recipe):
     template_name = 'recipes/add_recipe.html'
     context = {}
@@ -42,6 +46,7 @@ def edit_recipe(request, id_recipe):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/contas/login/')
 def delete_recipe(request, id_recipe):
     recipe = Recipe.objects.get(id=id_recipe)
     recipe.delete()

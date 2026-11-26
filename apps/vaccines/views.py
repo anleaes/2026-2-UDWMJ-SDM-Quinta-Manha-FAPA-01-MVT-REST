@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import VaccineForm
 from .models import Vaccine
 
 
+@login_required(login_url='/contas/login/')
 def add_vaccine(request):
     template_name = 'vaccines/add_vaccine.html'
     context = {}
@@ -19,6 +21,7 @@ def add_vaccine(request):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/contas/login/')
 def list_vaccines(request):
     template_name = 'vaccines/list_vaccines.html'
     vaccines = Vaccine.objects.filter()
@@ -28,6 +31,7 @@ def list_vaccines(request):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/contas/login/')
 def edit_vaccine(request, id_vaccine):
     template_name = 'vaccines/add_vaccine.html'
     context = {}
@@ -42,6 +46,7 @@ def edit_vaccine(request, id_vaccine):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/contas/login/')
 def delete_vaccine(request, id_vaccine):
     vaccine = Vaccine.objects.get(id=id_vaccine)
     vaccine.delete()
