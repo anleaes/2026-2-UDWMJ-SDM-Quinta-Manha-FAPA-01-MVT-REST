@@ -6,3 +6,4 @@ class SpeciesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Species
+        fields = '__all__'
