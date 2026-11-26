@@ -5,9 +5,11 @@ from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from .serializer import AppointmentSerializer
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+@login_required(login_url='/contas/login/')
 def add_appointment(request):
     template_name = 'appointments/add_appointment.html'
     context = {}
@@ -23,6 +25,7 @@ def add_appointment(request):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/contas/login/')
 def list_appointments(request):
     template_name = 'appointments/list_appointments.html'
     appointments = appointments = Appointment.objects.filter()#Appointment.objects.prefetch_related('vaccinations')
@@ -32,6 +35,7 @@ def list_appointments(request):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/contas/login/')
 def edit_appointment(request, id_appointment):
     template_name = 'appointments/add_appointment.html'
     context = {}
@@ -46,12 +50,14 @@ def edit_appointment(request, id_appointment):
     return render(request, template_name, context)
 
 
+@login_required(login_url='/contas/login/')
 def delete_appointment(request, id_appointment):
     appointment = Appointment.objects.get(id=id_appointment)
     appointment.delete()
     return redirect('appointments:list_appointments')
 
 
+@login_required(login_url='/contas/login/')
 def confirm_appointment(request, id_appointment):
     appointment = get_object_or_404(Appointment, id=id_appointment)
     if appointment.status != 'Confirmada':
@@ -60,6 +66,7 @@ def confirm_appointment(request, id_appointment):
     return redirect('appointments:list_appointments')
 
 
+@login_required(login_url='/contas/login/')
 def complete_appointment(request, id_appointment):
     appointment = get_object_or_404(Appointment, id=id_appointment)
     if appointment.status != 'Concluida':
@@ -68,6 +75,7 @@ def complete_appointment(request, id_appointment):
     return redirect('appointments:list_appointments')
 
 
+@login_required(login_url='/contas/login/')
 def cancel_appointment(request, id_appointment):
     appointment = get_object_or_404(Appointment, id=id_appointment)
     if appointment.status != 'Cancelada':
