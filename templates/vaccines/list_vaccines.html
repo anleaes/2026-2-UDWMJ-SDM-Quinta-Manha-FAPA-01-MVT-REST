@@ -46,6 +46,7 @@
             {% endif %}
           </td>
           <td>
+            <a href="{% url 'vaccines:vaccine_next_dose' vaccine.id %}">Próxima dose</a>
             <a href="{% url 'vaccines:edit_vaccine' vaccine.id %}">Editar</a>
             <a href="{% url 'vaccines:delete_vaccine' vaccine.id %}">Excluir</a>
           </td>

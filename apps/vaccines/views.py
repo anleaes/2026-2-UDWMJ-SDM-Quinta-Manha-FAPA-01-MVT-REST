@@ -1,8 +1,17 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
+from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
+from animals.models import Animal
+
 from .forms import VaccineForm
 from .models import Vaccine
+from .serializer import VaccineNextDoseQuerySerializer, VaccineSerializer
 
 
 @login_required(login_url='/contas/login/')
@@ -51,3 +60,34 @@ def delete_vaccine(request, id_vaccine):
     vaccine = Vaccine.objects.get(id=id_vaccine)
     vaccine.delete()
     return redirect('vaccines:list_vaccines')
+
+
+@login_required(login_url='/contas/login/')
+def vaccine_next_dose(request, id_vaccine):
+    template_name = 'vaccines/next_dose.html'
+    vaccine = get_object_or_404(Vaccine, id=id_vaccine)
+    animals = Animal.objects.filter()
+    context = {
+        'vaccine': vaccine,
+        'animals': animals,
+    }
+    query = request.GET.get('animal')
+    if query:
+        animal = get_object_or_404(Animal, id=query)
+        context['animal'] = animal
+        context['next_dose'] = vaccine.next_dose(animal)
+    return render(request, template_name, context)
+
+
+class VaccineViewSet(viewsets.ModelViewSet):
+    queryset = Vaccine.objects.all()
+    serializer_class = VaccineSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    @action(detail=True, methods=['get'], url_path='proxima-dose')
+    def next_dose(self, request, pk=None):
+        vaccine = self.get_object()
+        query = VaccineNextDoseQuerySerializer(data=request.query_params)
+        query.is_valid(raise_exception=True)
+        return Response({'next_dose': vaccine.next_dose(query.validated_data['animal'])})
