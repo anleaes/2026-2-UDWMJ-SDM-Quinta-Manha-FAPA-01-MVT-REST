@@ -1,8 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
+from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+
 from .forms import RecipeForm
 from .models import Recipe
+from .serializer import RecipeSerializer
 
 
 @login_required(login_url='/contas/login/')
@@ -51,3 +56,10 @@ def delete_recipe(request, id_recipe):
     recipe = Recipe.objects.get(id=id_recipe)
     recipe.delete()
     return redirect('recipes:list_recipes')
+
+
+class RecipeViewSet(viewsets.ModelViewSet):
+    queryset = Recipe.objects.all()
+    serializer_class = RecipeSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
