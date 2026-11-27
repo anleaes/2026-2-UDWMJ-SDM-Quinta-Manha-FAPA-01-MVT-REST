@@ -1,8 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
+from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from .forms import ManufacturerForm
 from .models import Manufacturer
+from .serializer import ManufacturerSerializer
 
 
 # Create your views here.
@@ -55,3 +59,10 @@ def delete_manufacturer(request, id_manufacturer):
     manufacturer = Manufacturer.objects.get(id=id_manufacturer)
     manufacturer.delete()
     return redirect('manufacturers:list_manufacturers')
+
+
+class ManufacturerViewSet(viewsets.ModelViewSet):
+    queryset = Manufacturer.objects.all()
+    serializer_class = ManufacturerSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
