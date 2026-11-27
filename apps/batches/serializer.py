@@ -3,3 +3,4 @@ from .models import Batch
 
 
 class BatchSerializer(serializers.ModelSerializer):
+    class Meta:
