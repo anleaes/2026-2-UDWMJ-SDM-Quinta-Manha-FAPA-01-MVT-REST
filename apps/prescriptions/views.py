@@ -3,7 +3,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import PrescriptionForm
 from .models import Prescription
 from .serializer import PrescriptionSerializer
+from recipes.serializer import RecipeSerializer
 from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from recipes.models import Recipe
@@ -86,3 +89,10 @@ class PrescriptionViewSet(viewsets.ModelViewSet):
     serializer_class = PrescriptionSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
+    @action(detail=True, methods=['post'], url_path='emitir-receita')
+    def issue_recipe(self, request, pk=None):
+        prescription = self.get_object()
+        recipe = create_recipe_for_prescription(prescription)
+        serializer = RecipeSerializer(recipe)
+        return Response(serializer.data)
