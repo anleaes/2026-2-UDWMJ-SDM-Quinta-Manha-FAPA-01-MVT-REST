@@ -2,6 +2,10 @@ from datetime import date, timedelta
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import PrescriptionForm
 from .models import Prescription
+from .serializer import PrescriptionSerializer
+from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from recipes.models import Recipe
 from django.contrib.auth.decorators import login_required
 
@@ -70,3 +74,10 @@ def issue_recipe(request, id_prescription):
             recipe_type=recipe_type
         )
     return redirect('prescriptions:list_prescriptions')
+
+
+class PrescriptionViewSet(viewsets.ModelViewSet):
+    queryset = Prescription.objects.all()
+    serializer_class = PrescriptionSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
