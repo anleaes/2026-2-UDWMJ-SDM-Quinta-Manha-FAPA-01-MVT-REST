@@ -3,4 +3,4 @@ from .models import Animal
 
 
 class AnimalSerializer(serializers.ModelSerializer):
-    pass
+   age = serializers.IntegerField(read_only=True)
