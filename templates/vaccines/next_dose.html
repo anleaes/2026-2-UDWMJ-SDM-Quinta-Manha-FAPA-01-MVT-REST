@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Próxima dose - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+  <h1>Próxima dose de {{ vaccine.name }}</h1>
+  <form method="get">
+    {{ form.as_p }}
+    <button type="submit">Consultar</button>
+  </form>
+
+  {% if animal %}
+    {% if next_dose %}
+      <p>Próxima dose de {{ animal.name }}: {{ next_dose|date:"d/m/Y" }}.</p>
+    {% else %}
+      <p>{{ animal.name }} já completou as doses desta vacina.</p>
+    {% endif %}
+  {% endif %}
+
+  <p><a href="{% url 'vaccines:list_vaccines' %}">Voltar para Vacinas</a></p>
+{% endblock body %}
