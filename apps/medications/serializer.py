@@ -3,3 +3,4 @@ from .models import Medication
 
 
 class MedicationSerializer(serializers.ModelSerializer):
+    class Meta:
