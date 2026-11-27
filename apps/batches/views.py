@@ -1,8 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
+from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+
 from .forms import BatchForm
 from .models import Batch
+from .serializer import BatchSerializer
 
 
 @login_required(login_url='/contas/login/')
@@ -51,3 +56,10 @@ def delete_batch(request, id_batch):
     batch = Batch.objects.get(id=id_batch)
     batch.delete()
     return redirect('batches:list_batches')
+
+
+class BatchViewSet(viewsets.ModelViewSet):
+    queryset = Batch.objects.all()
+    serializer_class = BatchSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
