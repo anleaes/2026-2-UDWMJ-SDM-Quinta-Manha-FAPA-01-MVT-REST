@@ -1,6 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import MedicationForm
 from .models import Medication
+from .serializer import MedicationSerializer
+from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -51,3 +55,10 @@ def delete_medication(request, id_medication):
     medication = Medication.objects.get(id=id_medication)
     medication.delete()
     return redirect('medications:list_medications')
+
+
+class MedicationViewSet(viewsets.ModelViewSet):
+    queryset = Medication.objects.all()
+    serializer_class = MedicationSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
