@@ -3,3 +3,4 @@ from .models import Recipe
 
 
 class RecipeSerializer(serializers.ModelSerializer):
+    class Meta:
