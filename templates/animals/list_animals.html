@@ -17,6 +17,7 @@
             <th>Nome</th>
             <th>Espécie</th>
             <th>Tutor</th>
+            <th>Idade</th>
             <th>Sexo</th>
             <th>Peso (kg)</th>
             <th>Microchip</th>
@@ -32,6 +33,7 @@
             <td>{{ animal.name }}</td>
             <td>{{ animal.species.name }}</td>
             <td>{{ animal.tutor.name }}</td>
+            <td>{{ animal.age }} anos</td>
             <td>{{ animal.get_sex_display }}</td>
             <td>{{ animal.weight_kg }}</td>
             <td>{{ animal.microchip }}</td>
@@ -51,7 +53,7 @@
         </tr>
         {% empty %}
         <tr>
-            <td colspan="10">Nenhum animal cadastrado.</td>
+            <td colspan="11">Nenhum animal cadastrado.</td>
         </tr>
         {% endfor %}
     </tbody>
