@@ -7,7 +7,9 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from .forms import VaccineForm, VaccineNextDoseForm
+from animals.models import Animal
+
+from .forms import VaccineForm
 from .models import Vaccine
 from .serializer import VaccineNextDoseQuerySerializer, VaccineSerializer
 
@@ -62,13 +64,19 @@ def delete_vaccine(request, id_vaccine):
 
 @login_required(login_url='/contas/login/')
 def vaccine_next_dose(request, id_vaccine):
+    template_name = 'vaccines/next_dose.html'
     vaccine = get_object_or_404(Vaccine, id=id_vaccine)
-    form = VaccineNextDoseForm(request.GET or None)
-    context = {'vaccine': vaccine, 'form': form}
-    if form.is_valid():
-        context['animal'] = form.cleaned_data['animal']
-        context['next_dose'] = vaccine.next_dose(context['animal'])
-    return render(request, 'vaccines/next_dose.html', context)
+    animals = Animal.objects.filter()
+    context = {
+        'vaccine': vaccine,
+        'animals': animals,
+    }
+    query = request.GET.get('animal')
+    if query:
+        animal = get_object_or_404(Animal, id=query)
+        context['animal'] = animal
+        context['next_dose'] = vaccine.next_dose(animal)
+    return render(request, template_name, context)
 
 
 class VaccineViewSet(viewsets.ModelViewSet):
