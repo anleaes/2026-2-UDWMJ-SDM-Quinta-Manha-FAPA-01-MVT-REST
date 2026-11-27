@@ -1,8 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
+from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+
 from .forms import VaccineForm
 from .models import Vaccine
+from .serializer import VaccineSerializer
 
 
 @login_required(login_url='/contas/login/')
@@ -51,3 +56,10 @@ def delete_vaccine(request, id_vaccine):
     vaccine = Vaccine.objects.get(id=id_vaccine)
     vaccine.delete()
     return redirect('vaccines:list_vaccines')
+
+
+class VaccineViewSet(viewsets.ModelViewSet):
+    queryset = Vaccine.objects.all()
+    serializer_class = VaccineSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
