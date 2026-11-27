@@ -4,3 +4,4 @@ from .models import Veterinarian
 
 class VeterinarianSerializer(serializers.ModelSerializer):
     class Meta:
+        model = Veterinarian
