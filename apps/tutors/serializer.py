@@ -4,4 +4,4 @@ from .models import Tutor
 
 class TutorSerializer(serializers.ModelSerializer):
   class Meta:
-        pass
+    model = Tutor
