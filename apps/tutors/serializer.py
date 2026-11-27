@@ -3,4 +3,5 @@ from .models import Tutor
 
 
 class TutorSerializer(serializers.ModelSerializer):
-    pass
+  class Meta:
+        pass
