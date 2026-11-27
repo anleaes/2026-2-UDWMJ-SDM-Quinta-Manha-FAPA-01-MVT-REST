@@ -5,19 +5,31 @@
 {% endblock title %}
 
 {% block body %}
-  <h1>Próxima dose de {{ vaccine.name }}</h1>
-  <form method="get">
-    {{ form.as_p }}
+  <br />
+  <b>Próxima dose de {{ vaccine.name }}</b>
+  <br />
+  <br />
+  <form action="" method="GET">
+    <label>Animal:</label>
+    <br />
+    <select name="animal">
+      {% for item in animals %}
+        <option value="{{ item.id }}">{{ item.name }}</option>
+      {% endfor %}
+    </select>
+    <br />
+    <br />
     <button type="submit">Consultar</button>
   </form>
-
+  <br />
   {% if animal %}
     {% if next_dose %}
-      <p>Próxima dose de {{ animal.name }}: {{ next_dose|date:"d/m/Y" }}.</p>
+      Próxima dose de {{ animal.name }}: {{ next_dose|date:"d/m/Y" }}
     {% else %}
-      <p>{{ animal.name }} já completou as doses desta vacina.</p>
+      {{ animal.name }} já completou as doses desta vacina.
     {% endif %}
   {% endif %}
-
-  <p><a href="{% url 'vaccines:list_vaccines' %}">Voltar para Vacinas</a></p>
+  <br />
+  <br />
+  <a href="{% url 'vaccines:list_vaccines' %}">Voltar</a>
 {% endblock body %}
