@@ -1,7 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
+from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from .forms import TutorForm
 from .models import Tutor
+from .serializer import TutorSerializer
 
 # Create your views here.
 
@@ -48,3 +52,9 @@ def delete_tutor(request, id_tutor):
     tutor = Tutor.objects.get(id=id_tutor)
     tutor.delete()
     return redirect('tutors:list_tutors')
+
+class TutorViewSet(viewsets.ModelViewSet):
+    queryset = Tutor.objects.all()
+    serializer_class = TutorSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
