@@ -3,3 +3,4 @@ from .models import Vaccine
 
 
 class VaccineSerializer(serializers.ModelSerializer):
+    class Meta:
