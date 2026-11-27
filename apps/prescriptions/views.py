@@ -2,6 +2,13 @@ from datetime import date, timedelta
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import PrescriptionForm
 from .models import Prescription
+from .serializer import PrescriptionSerializer
+from recipes.serializer import RecipeSerializer
+from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from recipes.models import Recipe
 from django.contrib.auth.decorators import login_required
 
@@ -55,18 +62,37 @@ def delete_prescription(request, id_prescription):
     return redirect('prescriptions:list_prescriptions')
 
 
+def create_recipe_for_prescription(prescription):
+    if hasattr(prescription, 'recipe'):
+        return prescription.recipe
+    if prescription.medication.is_controlled:
+        recipe_type = 'Controle especial'
+    else:
+        recipe_type = 'Simples'
+    return Recipe.objects.create(
+        prescription=prescription,
+        number=f'REC-{prescription.id:06d}',
+        valid_until=date.today() + timedelta(days=30),
+        recipe_type=recipe_type
+    )
+
+
 @login_required(login_url='/contas/login/')
 def issue_recipe(request, id_prescription):
     prescription = get_object_or_404(Prescription, id=id_prescription)
-    if not hasattr(prescription, 'recipe'):
-        if prescription.medication.is_controlled:
-            recipe_type = 'Controle especial'
-        else:
-            recipe_type = 'Simples'
-        Recipe.objects.create(
-            prescription=prescription,
-            number=f'REC-{prescription.id:06d}',
-            valid_until=date.today() + timedelta(days=30),
-            recipe_type=recipe_type
-        )
+    create_recipe_for_prescription(prescription)
     return redirect('prescriptions:list_prescriptions')
+
+
+class PrescriptionViewSet(viewsets.ModelViewSet):
+    queryset = Prescription.objects.all()
+    serializer_class = PrescriptionSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    @action(detail=True, methods=['post'], url_path='emitir-receita')
+    def issue_recipe(self, request, pk=None):
+        prescription = self.get_object()
+        recipe = create_recipe_for_prescription(prescription)
+        serializer = RecipeSerializer(recipe)
+        return Response(serializer.data)
