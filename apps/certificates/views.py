@@ -1,7 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
+from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from .forms import CertificateForm
 from .models import Certificate
+from .serializer import CertificateSerializer
 
 # Create your views here.
 
@@ -48,3 +52,9 @@ def delete_certificate(request, id_certificate):
     certificate = Certificate.objects.get(id=id_certificate)
     certificate.delete()
     return redirect('certificates:list_certificates')
+
+class CertificateViewSet(viewsets.ModelViewSet):
+    queryset = Certificate.objects.all()
+    serializer_class = CertificateSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
