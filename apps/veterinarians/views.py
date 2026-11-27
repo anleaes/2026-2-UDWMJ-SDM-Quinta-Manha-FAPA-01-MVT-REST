@@ -1,6 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import VeterinarianForm
 from .models import Veterinarian
+from .serializer import VeterinarianSerializer
+from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -51,3 +55,10 @@ def delete_veterinarian(request, id_veterinarian):
     veterinarian = Veterinarian.objects.get(id=id_veterinarian)
     veterinarian.delete()
     return redirect('veterinarians:list_veterinarians')
+
+
+class VeterinarianViewSet(viewsets.ModelViewSet):
+    queryset = Veterinarian.objects.all()
+    serializer_class = VeterinarianSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
