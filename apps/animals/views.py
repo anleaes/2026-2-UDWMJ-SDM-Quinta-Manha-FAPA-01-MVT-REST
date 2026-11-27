@@ -1,7 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
+from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from .forms import AnimalForm
 from .models import Animal
+from .serializer import AnimalSerializer
 
 # Create your views here.
 
@@ -48,3 +52,9 @@ def delete_animal(request, id_animal):
     animal = Animal.objects.get(id=id_animal)
     animal.delete()
     return redirect('animals:list_animals')
+
+class AnimalViewSet(viewsets.ModelViewSet):
+    queryset = Animal.objects.all()
+    serializer_class = AnimalSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
