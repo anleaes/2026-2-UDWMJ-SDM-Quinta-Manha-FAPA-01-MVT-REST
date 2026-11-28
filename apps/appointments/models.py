@@ -29,3 +29,15 @@ class Appointment(models.Model):
 
     def __str__(self):
         return f'{self.animal} - {timezone.localtime(self.scheduled_at):%d/%m/%Y %H:%M}'
+
+    def confirm(self):
+        self.status = 'Confirmada'
+        self.save()
+
+    def complete(self):
+        self.status = 'Concluida'
+        self.save()
+
+    def cancel(self):
+        self.status = 'Cancelada'
+        self.save()
