@@ -6,6 +6,8 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from .serializer import AppointmentSerializer
 from django.contrib.auth.decorators import login_required
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 # Create your views here.
 
@@ -18,7 +20,6 @@ def add_appointment(request):
         if form.is_valid():
             f = form.save(commit=False)
             f.save()
-            form.save_m2m()
             return redirect('appointments:list_appointments')
     form = AppointmentForm()
     context['form'] = form
@@ -28,7 +29,7 @@ def add_appointment(request):
 @login_required(login_url='/contas/login/')
 def list_appointments(request):
     template_name = 'appointments/list_appointments.html'
-    appointments = appointments = Appointment.objects.filter()#Appointment.objects.prefetch_related('vaccinations')
+    appointments = Appointment.objects.filter()#Appointment.objects.prefetch_related('vaccinations')
     context = {
         'appointments': appointments
     }
@@ -60,27 +61,21 @@ def delete_appointment(request, id_appointment):
 @login_required(login_url='/contas/login/')
 def confirm_appointment(request, id_appointment):
     appointment = get_object_or_404(Appointment, id=id_appointment)
-    if appointment.status != 'Confirmada':
-        appointment.status = 'Confirmada'
-        appointment.save()
+    appointment.confirm()
     return redirect('appointments:list_appointments')
 
 
 @login_required(login_url='/contas/login/')
 def complete_appointment(request, id_appointment):
     appointment = get_object_or_404(Appointment, id=id_appointment)
-    if appointment.status != 'Concluida':
-        appointment.status = 'Concluida'
-        appointment.save()
+    appointment.complete()
     return redirect('appointments:list_appointments')
 
 
 @login_required(login_url='/contas/login/')
 def cancel_appointment(request, id_appointment):
     appointment = get_object_or_404(Appointment, id=id_appointment)
-    if appointment.status != 'Cancelada':
-        appointment.status = 'Cancelada'
-        appointment.save()
+    appointment.cancel()
     return redirect('appointments:list_appointments')
 
 
@@ -89,3 +84,21 @@ class AppointmentViewSet(viewsets.ModelViewSet):
     serializer_class = AppointmentSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
+    @action(detail=True, methods=['post'])
+    def confirmar(self, request, pk=None):
+        appointment = self.get_object()
+        appointment.confirm()
+        return Response(self.get_serializer(appointment).data)
+
+    @action(detail=True, methods=['post'])
+    def completar(self, request, pk=None):
+        appointment = self.get_object()
+        appointment.complete()
+        return Response(self.get_serializer(appointment).data)
+
+    @action(detail=True, methods=['post'])
+    def cancelar(self, request, pk=None):
+        appointment = self.get_object()
+        appointment.cancel()
+        return Response(self.get_serializer(appointment).data)
