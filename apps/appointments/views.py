@@ -6,6 +6,8 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from .serializer import AppointmentSerializer
 from django.contrib.auth.decorators import login_required
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 # Create your views here.
 
@@ -82,3 +84,21 @@ class AppointmentViewSet(viewsets.ModelViewSet):
     serializer_class = AppointmentSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
+    @action(detail=True, methods=['post'])
+    def confirm(self, request, pk=None):
+        appointment = self.get_object()
+        appointment.confirm()
+        return Response(self.get_serializer(appointment).data)
+
+    @action(detail=True, methods=['post'])
+    def complete(self, request, pk=None):
+        appointment = self.get_object()
+        appointment.complete()
+        return Response(self.get_serializer(appointment).data)
+
+    @action(detail=True, methods=['post'])
+    def cancel(self, request, pk=None):
+        appointment = self.get_object()
+        appointment.cancel()
+        return Response(self.get_serializer(appointment).data)
