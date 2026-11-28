@@ -86,19 +86,19 @@ class AppointmentViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     @action(detail=True, methods=['post'])
-    def confirm(self, request, pk=None):
+    def confirmar(self, request, pk=None):
         appointment = self.get_object()
         appointment.confirm()
         return Response(self.get_serializer(appointment).data)
 
     @action(detail=True, methods=['post'])
-    def complete(self, request, pk=None):
+    def completar(self, request, pk=None):
         appointment = self.get_object()
         appointment.complete()
         return Response(self.get_serializer(appointment).data)
 
     @action(detail=True, methods=['post'])
-    def cancel(self, request, pk=None):
+    def cancelar(self, request, pk=None):
         appointment = self.get_object()
         appointment.cancel()
         return Response(self.get_serializer(appointment).data)
