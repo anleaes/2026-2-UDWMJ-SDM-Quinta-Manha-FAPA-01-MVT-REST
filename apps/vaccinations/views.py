@@ -76,3 +76,16 @@ class VaccinationViewSet(viewsets.ModelViewSet):
     serializer_class = VaccinationSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        vaccination = Vaccination(**serializer.validated_data)
+        try:
+            vaccination.apply()
+        except DjangoValidationError as e:
+            raise serializers.ValidationError({'batch': e.messages})
+        serializer.instance = vaccination
+
+    @action(detail=True, methods=['post'])
+    def issue_certificate(self, request, pk=None):
+        certificate = self.get_object().issue_certificate()
+        return Response({'id': certificate.id, 'number': certificate.number}, status=201)
