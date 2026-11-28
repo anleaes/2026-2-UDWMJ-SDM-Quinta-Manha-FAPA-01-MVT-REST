@@ -18,7 +18,6 @@ def add_appointment(request):
         if form.is_valid():
             f = form.save(commit=False)
             f.save()
-            form.save_m2m()
             return redirect('appointments:list_appointments')
     form = AppointmentForm()
     context['form'] = form
@@ -28,7 +27,7 @@ def add_appointment(request):
 @login_required(login_url='/contas/login/')
 def list_appointments(request):
     template_name = 'appointments/list_appointments.html'
-    appointments = appointments = Appointment.objects.filter()#Appointment.objects.prefetch_related('vaccinations')
+    appointments = Appointment.objects.filter()#Appointment.objects.prefetch_related('vaccinations')
     context = {
         'appointments': appointments
     }
@@ -60,27 +59,21 @@ def delete_appointment(request, id_appointment):
 @login_required(login_url='/contas/login/')
 def confirm_appointment(request, id_appointment):
     appointment = get_object_or_404(Appointment, id=id_appointment)
-    if appointment.status != 'Confirmada':
-        appointment.status = 'Confirmada'
-        appointment.save()
+    appointment.confirm()
     return redirect('appointments:list_appointments')
 
 
 @login_required(login_url='/contas/login/')
 def complete_appointment(request, id_appointment):
     appointment = get_object_or_404(Appointment, id=id_appointment)
-    if appointment.status != 'Concluida':
-        appointment.status = 'Concluida'
-        appointment.save()
+    appointment.complete()
     return redirect('appointments:list_appointments')
 
 
 @login_required(login_url='/contas/login/')
 def cancel_appointment(request, id_appointment):
     appointment = get_object_or_404(Appointment, id=id_appointment)
-    if appointment.status != 'Cancelada':
-        appointment.status = 'Cancelada'
-        appointment.save()
+    appointment.cancel()
     return redirect('appointments:list_appointments')
 
 
