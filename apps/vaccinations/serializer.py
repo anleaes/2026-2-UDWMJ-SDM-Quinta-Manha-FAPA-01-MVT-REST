@@ -5,3 +5,4 @@ class VaccinationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vaccination
         fields = '__all__'
+        read_only_fields = ['applied_at']
