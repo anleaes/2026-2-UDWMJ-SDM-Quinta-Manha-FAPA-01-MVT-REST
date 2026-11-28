@@ -1,14 +1,15 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import VaccinationForm
 from .models import Vaccination
-from rest_framework import viewsets
+from rest_framework import viewsets, serializers
 from .serializer import VaccinationSerializer
-from django.utils import timezone
-from datetime import date, timedelta
-from certificates.models import Certificate
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.decorators import login_required
+
+from django.core.exceptions import ValidationError as DjangoValidationError
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 # Create your views here.
 
@@ -20,19 +21,14 @@ def add_vaccination(request):
         form = VaccinationForm(request.POST)
         if form.is_valid():
             f = form.save(commit=False)
-            if f.batch.is_expired():
-                form.add_error('batch', 'Este lote está vencido.')
-            elif not f.batch.decrease_stock():
-                form.add_error('batch', 'Este lote está sem estoque.')
-            else:
-                f.applied_at = timezone.now()
-                f.save()
-                form.save_m2m()
+            try:
+                f.apply()
                 return redirect('vaccinations:list_vaccinations')
+            except DjangoValidationError as e:
+                form.add_error('batch', e.messages[0])
         context['form'] = form
         return render(request, template_name, context)
-    form = VaccinationForm()
-    context['form'] = form
+    context['form'] = VaccinationForm()
     return render(request, template_name, context)
 
 
@@ -71,12 +67,7 @@ def delete_vaccination(request, id_vaccination):
 @login_required(login_url='/contas/login/')
 def issue_certificate(request, id_vaccination):
     vaccination = get_object_or_404(Vaccination, id=id_vaccination)
-    if not hasattr(vaccination, 'certificate'):
-        Certificate.objects.create(
-            vaccination=vaccination,
-            number=f'CERT-{vaccination.id:06d}',
-            valid_until=date.today() + timedelta(days=vaccination.batch.vaccine.interval_days),
-        )
+    vaccination.issue_certificate()
     return redirect('vaccinations:list_vaccinations')
 
 
@@ -85,3 +76,16 @@ class VaccinationViewSet(viewsets.ModelViewSet):
     serializer_class = VaccinationSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        vaccination = Vaccination(**serializer.validated_data)
+        try:
+            vaccination.apply()
+        except DjangoValidationError as e:
+            raise serializers.ValidationError({'batch': e.messages})
+        serializer.instance = vaccination
+
+    @action(detail=True, methods=['post'])
+    def issue_certificate(self, request, pk=None):
+        certificate = self.get_object().issue_certificate()
+        return Response({'id': certificate.id, 'number': certificate.number}, status=201)
